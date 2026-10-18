@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\pch.h" />
+    <ClInclude Include="Source\PlayerRegistration.h" />
+    <ClInclude Include="Source\PlayerState.h" />
+    <ClInclude Include="Source\PacketWorkers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

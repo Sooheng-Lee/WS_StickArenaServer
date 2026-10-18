@@ -1,4 +1,6 @@
 #include "pch.h"
+#include "PlayerRegistration.h"
+#include "PacketWorkers.h"
 
 namespace
 {
@@ -89,10 +91,97 @@ int main(int argc, char* argv[])
 
     std::cout << std::unitbuf << "StickArena UDP server listening on 0.0.0.0:" << port
         << "\nWaiting for player actions. Press Ctrl+C to stop.\n";
-    std::array<char, 1200> buffer{};
+    PlayerRegistry playerRegistry;
+    std::mutex logMutex;
+    const auto sendPacket = [&](const std::string& packet, const PlayerEndpoint& recipient)
+    {
+        sockaddr_in destination{};
+        destination.sin_family = AF_INET;
+        destination.sin_port = htons(recipient.Port);
+        if (InetPtonA(AF_INET, recipient.Address.c_str(), &destination.sin_addr) != 1) return;
+        if (sendto(socket.Handle, packet.data(), static_cast<int>(packet.size()), 0,
+            reinterpret_cast<const sockaddr*>(&destination), sizeof(destination)) == SOCKET_ERROR)
+        {
+            const int error = WSAGetLastError();
+            const std::lock_guard<std::mutex> lock(logMutex);
+            std::cerr << "sendto failed: " << error << '\n';
+        }
+    };
+    const auto processPacket = [&](const ReceivedPacket& received)
+    {
+        const std::string_view packet = received.Data;
+        bool valid = packet.size() >= 4;
+        for (const unsigned char value : packet) valid = valid && value >= 32 && value <= 126;
+        if (!valid) return;
+        if (packet.substr(0, 4) == "SA2|")
+        {
+            PlayerRegistration player;
+            if (!RegistrationProtocol::Parse(packet, player))
+            {
+                const std::lock_guard<std::mutex> lock(logMutex);
+                std::cerr << "Dropped invalid player registration.\n";
+                return;
+            }
+            player.Address = received.Sender.Address;
+            player.Port = received.Sender.Port;
+            const auto result = playerRegistry.Store(player);
+            if (result == PlayerRegistry::StoreResult::EndpointMismatch) return;
+            sendPacket("SA2|type=REGISTER_ACK|session=" + player.PlayerId, received.Sender);
+            // Repeat peer metadata during registration heartbeats so lost UDP info recovers.
+            // A new peer also gets the existing players' latest snapshots immediately.
+            const auto players = playerRegistry.GetPlayers();
+            const std::string info = RegistrationProtocol::SerializePlayerInfo(player);
+            for (const auto& other : players)
+            {
+                if (other.PlayerId == player.PlayerId
+                    || (other.Address == player.Address && other.Port == player.Port)) continue;
+                sendPacket(info, {other.Address, other.Port});
+                sendPacket(RegistrationProtocol::SerializePlayerInfo(other), received.Sender);
+                if (other.HasState) sendPacket(StateProtocol::Serialize(other.LatestState), received.Sender);
+            }
+            if (result == PlayerRegistry::StoreResult::Inserted)
+            {
+                const auto count = players.size();
+                const std::lock_guard<std::mutex> lock(logMutex);
+                std::cout << "Registered player " << player.PlayerId << " | name=" << player.PlayerName
+                    << " | character=" << player.CharacterClassPath << " | mesh=" << player.SkeletalMeshPath
+                    << " | anim=" << player.AnimInstanceClassPath << " | players=" << count << '\n';
+            }
+            return;
+        }
+        if (packet.substr(0, 4) == "SA3|")
+        {
+            PlayerState state;
+            std::vector<PlayerEndpoint> recipients;
+            if (!StateProtocol::Parse(packet, state)
+                || !playerRegistry.UpdateState(state, received.Sender, recipients)) return;
+            // UpdateState commits the struct before taking a recipient snapshot.
+            // No registry lock is held during socket sends.
+            const std::string broadcast = StateProtocol::Serialize(state);
+            for (const auto& recipient : recipients) sendPacket(broadcast, recipient);
+            return;
+        }
+        // Legacy diagnostic packets remain log-only; new clients send SA3 state structs.
+        if (packet.substr(0, 4) == "SA1|")
+        {
+            const std::lock_guard<std::mutex> lock(logMutex);
+            std::cout << '[' << received.Sender.Address << ':' << received.Sender.Port << "] " << packet << '\n';
+        }
+    };
+    const size_t workerCount = (std::max)(size_t{2}, (std::min)(size_t{8}, static_cast<size_t>(std::thread::hardware_concurrency())));
+    PacketWorkers workers(workerCount, processPacket);
+    std::cout << "Packet workers: " << workerCount << '\n';
+    std::array<char, 8192> buffer{};
     int exitCode = 0;
+    auto lastCleanup = std::chrono::steady_clock::now();
     while (Running.load())
     {
+        const auto now = std::chrono::steady_clock::now();
+        if (now - lastCleanup >= std::chrono::seconds(1))
+        {
+            playerRegistry.RemoveInactive(now);
+            lastCleanup = now;
+        }
         sockaddr_in sender{};
         int senderLength = sizeof(sender);
         const int received = recvfrom(socket.Handle, buffer.data(), static_cast<int>(buffer.size()), 0,
@@ -103,22 +192,12 @@ int main(int argc, char* argv[])
             if (error == WSAETIMEDOUT || error == WSAEWOULDBLOCK || error == WSAECONNRESET) continue;
             if (error == WSAEMSGSIZE)
             {
-                std::cerr << "Dropped oversized UDP datagram (maximum 1200 bytes).\n";
+                std::cerr << "Dropped oversized UDP datagram (maximum 8192 bytes).\n";
                 continue;
             }
             std::cerr << "recvfrom failed: " << error << '\n';
             exitCode = 1;
             break;
-        }
-
-        const std::string_view packet(buffer.data(), static_cast<size_t>(received));
-        bool valid = packet.size() >= 4 && packet.substr(0, 4) == "SA1|";
-        for (const unsigned char value : packet)
-            valid = valid && value >= 32 && value <= 126;
-        if (!valid)
-        {
-            std::cerr << "Dropped invalid StickArena datagram (" << received << " bytes).\n";
-            continue;
         }
 
         std::array<char, INET_ADDRSTRLEN> address{};
@@ -127,9 +206,14 @@ int main(int argc, char* argv[])
             std::cerr << "InetNtopA failed: " << WSAGetLastError() << '\n';
             continue;
         }
-        std::cout << '[' << address.data() << ':' << ntohs(sender.sin_port) << "] "
-            << received << " bytes | " << packet << '\n';
+        if (!workers.Enqueue({std::string(buffer.data(), static_cast<size_t>(received)),
+            {address.data(), ntohs(sender.sin_port)}}))
+        {
+            const std::lock_guard<std::mutex> lock(logMutex);
+            std::cerr << "Dropped datagram: worker queue full.\n";
+        }
     }
+    workers.Stop();
     SetConsoleCtrlHandler(HandleConsoleSignal, FALSE);
     std::cout << "Server stopped.\n";
     return exitCode;
