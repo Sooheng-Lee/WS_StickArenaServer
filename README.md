@@ -60,3 +60,29 @@ Unreal 자동화 테스트: `StickArena.Networking.EnemyCharacter`, `StickArena.
 ## PCH
 
 공통 헤더는 `Source/pch.h`에서 관리하며 새 `.cpp`의 첫 include는 `pch.h`로 지정합니다. `Source/pch.cpp`에서 PCH를 생성하며 프로젝트는 `Ws2_32.lib`를 링크합니다.
+
+## TreasureBox 동기화
+
+`Source/TreasureWorld.h`의 `MaxTreasureBoxes` 기본값은 5입니다. 활성 상자가 최대 미만이면 초 단위 `BoxSpawnCount`를 누적하고 5초마다 상자를 한 개 생성한 뒤 0으로 초기화합니다. 최대 개수이거나 접속자가 없으면 누적을 초기화합니다. 유효한 플레이어 위치가 도착한 이후 생성하며, 활성 플레이어 주변 XY ±750cm 범위와 발 높이를 후보 좌표로 만듭니다. 상태가 도착한 모든 플레이어와 XY 중심 거리 200cm 이상, 아직 파괴되지 않은 모든 상자와 250cm 이상 떨어진 후보만 허용합니다. 높이가 달라도 XY 기준으로 제외하며 파괴되어 아이템으로 바뀐 상자는 상자 간격 검사에서 제외합니다. 한 tick에서 최대 128회 후보를 검사하고 안전한 위치가 없으면 생성하지 않습니다. 이때 `BoxSpawnCount`는 5초로 유지하여 다음 tick에 다시 시도하고, 실제 생성에 성공해야 0으로 초기화합니다. 거리와 범위, 시도 횟수는 `MinimumPlayerSpawnDistance`, `MinimumBoxSpawnDistance`, `SpawnRadius`, `MaxSpawnAttempts`로 조절합니다. UE에서는 해당 XY의 지면을 trace하여 표시 높이를 맞춥니다. 서버에 맵 충돌 정보가 없으므로 이 방식은 맵 전체의 안전한 스폰 지점 검증을 제공하지 않습니다.
+
+```text
+SA4|type=TREASURE_STATE|epoch=<server-start>|id=1|item=0|hits=0|pos=100,200,30
+SA4|type=BOX_HIT|epoch=<server-start>|session=<GUID>|id=1|seq=1
+SA4|type=HIT_ACK|epoch=<server-start>|id=1|seq=1
+```
+
+`TreasureItem::Sword`와 UE `ESATreasureItem::Sword`의 wire 값은 0입니다. 상자 ID는 서버 실행 중 재사용하지 않습니다. 서버는 등록 세션/송신 endpoint와 거리 350cm, 플레이어별 동일 상자 타격 간격 200ms를 검사합니다. 타격 요청은 200ms마다 최대 2초 동안 같은 시퀀스로 재전송하고, 서버는 중복 요청을 다시 세지 않고 ACK를 보냅니다. UE는 로컬 플레이어의 공격 notify에서만 요청하여 원격 캐릭터의 공격 재생으로 인한 중복 타격을 막습니다.
+
+서버에서 세 번째 유효 타격을 받으면 `hits=3`으로 전환하고 동일 ID/좌표의 Sword를 생성하도록 전송합니다. UE는 상자를 파괴하고 `BP_WeaponSword`를 해당 자리에 생성합니다. `SwordItemClass`로 드롭 클래스를 변경할 수 있습니다. 현재 상자와 드롭 상태를 생성/타격 즉시 및 1초마다 전송하여 패킷 유실과 중간 접속을 복구합니다. UE는 역순 상태와 중복 생성을 무시하고, 서버 epoch가 바뀌면 기존 동기화 액터를 정리합니다.
+
+이번 프로토콜은 상자와 아이템 **생성**을 동기화합니다. 아이템 습득/장착은 기존 클라이언트 동작이며 서버에는 습득 상태를 전송하지 않습니다. 따라서 드롭 기록은 서버 실행 동안 유지되고 신규 접속자에게 다시 표시됩니다.
+
+검증: `./Tests/Test-Treasure.ps1`은 실제 UDP 서버에서 5초 생성, 두 클라이언트 브로드캐스트, 중복/다른 endpoint 타격, 세 번째 타격의 드롭, 중간 접속과 후속 생성을 검사합니다. `Tests/TreasureWorldTests.cpp`는 최대 개수와 타이머 초기화/보충, 거리 검사 및 타격 상태를 검사하는 독립 C++ 테스트입니다. UE 자동화 테스트는 `StickArena.Networking.TreasureBox`입니다.
+
+## 정상 종료 시 플레이어 제거
+
+UE `USAUdpClientComponent`는 `FCoreDelegates::OnPreExit` 및 `EndPlay`에서 소켓을 닫기 전에 `SA2|type=LEAVE|session=<GUID>` 패킷을 3회 전송합니다. 게임 종료, PIE 종료 및 해당 컴포넌트의 EndPlay에서 실행합니다. 서버는 세션 ID와 실제 송신 IP/포트를 확인하고 뮤텍스 안에서 `Players` 벡터의 해당 원소를 즉시 지웁니다. 종료한 세션은 10초간 재등록을 거부하여 지연된 등록 패킷에 의한 복구를 방지합니다. 새 접속은 새로운 GUID를 사용합니다.
+
+강제 종료, 크래시, 네트워크 장애 등으로 퇴장 패킷이 도착하지 않으면 마지막 등록/상태 수신 후 10초 비활성 정리가 적용됩니다(정리 주기 1초). 퇴장 패킷 제거는 `reason=LEAVE`, 비활성 제거는 `reason=TIMEOUT`으로 콘솔에 플레이어 ID·이름·IP/포트·삭제 당시 남은 인원을 출력합니다. 삭제 정보는 벡터를 잠근 상태에서 복사하고 로그는 잠금을 해제한 뒤 출력하여 중복 삭제 로그를 방지합니다. 프로세스가 즉시 사라지는 경우에는 종료 패킷을 보장할 수 없으므로 서버 타임아웃이 최종 정리를 담당합니다. 다른 클라이언트의 원격 캐릭터는 기존 10초 수신 타임아웃으로 정리됩니다. 벡터 제거와 송신 주소 검증은 `Tests/DisconnectTests.cpp`에서 검사합니다.
+
+정상 종료와 종료 통지 없는 소켓 단절의 실제 UDP 제거/로그 검증: `./Tests/Test-Disconnect.ps1`.

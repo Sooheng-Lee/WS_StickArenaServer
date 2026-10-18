@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 #include <algorithm>
 #include <array>
 #include <cstdint>
@@ -118,11 +120,21 @@ struct PlayerEndpoint
 class PlayerRegistry
 {
 public:
-    enum class StoreResult { Inserted, Updated, EndpointMismatch };
+    enum class StoreResult { Inserted, Updated, EndpointMismatch, SessionClosed };
+    struct Removal
+    {
+        PlayerRegistration Player;
+        size_t RemainingPlayers = 0;
+    };
 
     StoreResult Store(PlayerRegistration player)
     {
         const std::lock_guard<std::mutex> lock(Mutex);
+        const auto now = std::chrono::steady_clock::now();
+        for (auto it = ClosedSessions.begin(); it != ClosedSessions.end();)
+            if (now - it->second > std::chrono::seconds(10)) it = ClosedSessions.erase(it);
+            else ++it;
+        if (ClosedSessions.count(player.PlayerId)) return StoreResult::SessionClosed;
         const auto existing = std::find_if(Players.begin(), Players.end(),
             [&player](const PlayerRegistration& value) { return value.PlayerId == player.PlayerId; });
         if (existing != Players.end())
@@ -165,14 +177,37 @@ public:
         return true;
     }
 
-    void RemoveInactive(std::chrono::steady_clock::time_point now)
+    bool Remove(const std::string& playerId, const PlayerEndpoint& sender, Removal* removal = nullptr)
     {
         const std::lock_guard<std::mutex> lock(Mutex);
-        Players.erase(std::remove_if(Players.begin(), Players.end(), [now](const PlayerRegistration& player)
-            { return now - player.LastSeen > std::chrono::seconds(10); }), Players.end());
+        const auto player = std::find_if(Players.begin(), Players.end(), [&](const PlayerRegistration& value)
+            { return value.PlayerId == playerId && value.Address == sender.Address && value.Port == sender.Port; });
+        if (player == Players.end()) return false;
+        if (removal) *removal = {*player, Players.size() - 1};
+        ClosedSessions[playerId] = std::chrono::steady_clock::now();
+        Players.erase(player);
+        return true;
+    }
+
+    std::vector<Removal> RemoveInactive(std::chrono::steady_clock::time_point now)
+    {
+        const std::lock_guard<std::mutex> lock(Mutex);
+        std::vector<Removal> removed;
+        for (auto player = Players.begin(); player != Players.end();)
+        {
+            if (now - player->LastSeen > std::chrono::seconds(10))
+            {
+                removed.push_back({*player, Players.size() - 1});
+                player = Players.erase(player);
+            }
+            else ++player;
+        }
+        return removed;
     }
 
 private:
     mutable std::mutex Mutex;
     std::vector<PlayerRegistration> Players;
+    // Prevent delayed registration datagrams from resurrecting a disconnected session.
+    std::map<std::string, std::chrono::steady_clock::time_point> ClosedSessions;
 };

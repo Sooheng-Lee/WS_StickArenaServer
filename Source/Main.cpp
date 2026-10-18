@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "PlayerRegistration.h"
 #include "PacketWorkers.h"
+#include "TreasureWorld.h"
 
 namespace
 {
@@ -92,6 +93,7 @@ int main(int argc, char* argv[])
     std::cout << std::unitbuf << "StickArena UDP server listening on 0.0.0.0:" << port
         << "\nWaiting for player actions. Press Ctrl+C to stop.\n";
     PlayerRegistry playerRegistry;
+    TreasureWorld treasureWorld;
     std::mutex logMutex;
     const auto sendPacket = [&](const std::string& packet, const PlayerEndpoint& recipient)
     {
@@ -113,6 +115,36 @@ int main(int argc, char* argv[])
         bool valid = packet.size() >= 4;
         for (const unsigned char value : packet) valid = valid && value >= 32 && value <= 126;
         if (!valid) return;
+        constexpr std::string_view leavePrefix = "SA2|type=LEAVE|session=";
+        if (packet.substr(0, leavePrefix.size()) == leavePrefix)
+        {
+            const auto session = packet.substr(leavePrefix.size());
+            if (session.size() != 32) return;
+            for (const char digit : session) if (RegistrationProtocol::HexDigit(digit) < 0) return;
+            PlayerRegistry::Removal removal;
+            if (playerRegistry.Remove(std::string(session), received.Sender, &removal))
+            {
+                const std::lock_guard<std::mutex> lock(logMutex);
+                std::cout << "Player left " << session << " | players=" << removal.RemainingPlayers
+                    << " | reason=LEAVE | name=" << removal.Player.PlayerName
+                    << " | endpoint=" << removal.Player.Address << ':' << removal.Player.Port << '\n';
+            }
+            return;
+        }
+        if (packet.substr(0, 4) == "SA4|")
+        {
+            if (treasureWorld.Hit(packet, received.Sender, playerRegistry.GetPlayers()))
+            {
+                const auto idStart = packet.find("|id=");
+                const auto seqStart = packet.find("|seq=");
+                sendPacket("SA4|type=HIT_ACK|epoch=" + treasureWorld.Epoch
+                    + std::string(packet.substr(idStart, seqStart - idStart)) + std::string(packet.substr(seqStart)), received.Sender);
+                const auto packets = treasureWorld.Packets();
+                for (const auto& peer : playerRegistry.GetPlayers())
+                    for (const auto& update : packets) sendPacket(update, {peer.Address, peer.Port});
+            }
+            return;
+        }
         if (packet.substr(0, 4) == "SA2|")
         {
             PlayerRegistration player;
@@ -125,7 +157,8 @@ int main(int argc, char* argv[])
             player.Address = received.Sender.Address;
             player.Port = received.Sender.Port;
             const auto result = playerRegistry.Store(player);
-            if (result == PlayerRegistry::StoreResult::EndpointMismatch) return;
+            if (result == PlayerRegistry::StoreResult::EndpointMismatch
+                || result == PlayerRegistry::StoreResult::SessionClosed) return;
             sendPacket("SA2|type=REGISTER_ACK|session=" + player.PlayerId, received.Sender);
             // Repeat peer metadata during registration heartbeats so lost UDP info recovers.
             // A new peer also gets the existing players' latest snapshots immediately.
@@ -174,12 +207,30 @@ int main(int argc, char* argv[])
     std::array<char, 8192> buffer{};
     int exitCode = 0;
     auto lastCleanup = std::chrono::steady_clock::now();
+    auto lastTick = lastCleanup;
     while (Running.load())
     {
         const auto now = std::chrono::steady_clock::now();
+        if (treasureWorld.Tick(std::chrono::duration<double>(now - lastTick).count(), playerRegistry.GetPlayers()))
+        {
+            const auto updates = treasureWorld.Packets();
+            for (const auto& peer : playerRegistry.GetPlayers())
+                for (const auto& update : updates) sendPacket(update, {peer.Address, peer.Port});
+        }
+        lastTick = now;
         if (now - lastCleanup >= std::chrono::seconds(1))
         {
-            playerRegistry.RemoveInactive(now);
+            const auto removed = playerRegistry.RemoveInactive(now);
+            for (const auto& removal : removed)
+            {
+                const std::lock_guard<std::mutex> lock(logMutex);
+                std::cout << "Player left " << removal.Player.PlayerId << " | players=" << removal.RemainingPlayers
+                    << " | reason=TIMEOUT | name=" << removal.Player.PlayerName
+                    << " | endpoint=" << removal.Player.Address << ':' << removal.Player.Port << '\n';
+            }
+            const auto updates = treasureWorld.Packets();
+            for (const auto& peer : playerRegistry.GetPlayers())
+                for (const auto& update : updates) sendPacket(update, {peer.Address, peer.Port});
             lastCleanup = now;
         }
         sockaddr_in sender{};
