@@ -32,7 +32,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <!-- Keep the Windows SDK C runtime headers visible to both cl.exe and IntelliSense. -->
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)Source;$(UniversalCRT_IncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link><SubSystem>Console</SubSystem><AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies></Link>
   </ItemDefinitionGroup>
