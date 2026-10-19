@@ -31,6 +31,12 @@ struct PlayerState
     Vector3 Velocity;
     // X = Pitch, Y = Yaw, Z = Roll (degrees).
     Vector3 Rotation;
+    bool HasWeaponState = false;
+    // UTF-8 asset path encoded as hex, matching the registration protocol.
+    std::string WeaponClassHex;
+    std::string WeaponInstanceId;
+    std::uint32_t Ammo = 0;
+    std::uint32_t MaxAmmo = 0;
 };
 
 namespace StateProtocol
@@ -60,6 +66,7 @@ namespace StateProtocol
         constexpr std::array<std::string_view, 9> keys = {
             "session", "seq", "action", "state", "input", "pos", "vel", "rot", "attack" };
         std::array<std::string_view, 9> values{};
+        bool hasEquipment = false;
         for (size_t index = 0; index < keys.size(); ++index)
         {
             const size_t separator = packet.find('|');
@@ -72,7 +79,11 @@ namespace StateProtocol
                 if (separator == std::string_view::npos) return false;
                 packet.remove_prefix(separator + 1);
             }
-            else if (separator != std::string_view::npos) return false;
+            else if (separator != std::string_view::npos)
+            {
+                hasEquipment = true;
+                packet.remove_prefix(separator + 1);
+            }
         }
         if (values[0].size() != 32) return false;
         for (const char digit : values[0])
@@ -91,6 +102,48 @@ namespace StateProtocol
         const auto attack = std::from_chars(values[8].data(), values[8].data() + values[8].size(), parsed.AttackSequence);
         if (attack.ec != std::errc{} || attack.ptr != values[8].data() + values[8].size()
             || parsed.AttackSequence > static_cast<std::uint64_t>((std::numeric_limits<std::int64_t>::max)())) return false;
+        if (hasEquipment)
+        {
+            constexpr std::array<std::string_view, 4> equipmentKeys = { "weapon", "weaponid", "ammo", "maxammo" };
+            std::array<std::string_view, 4> equipment{};
+            for (size_t index = 0; index < equipment.size(); ++index)
+            {
+                const size_t separator = packet.find('|');
+                const auto field = packet.substr(0, separator);
+                const size_t equals = field.find('=');
+                if (equals == std::string_view::npos || field.substr(0, equals) != equipmentKeys[index]) return false;
+                equipment[index] = field.substr(equals + 1);
+                if (index + 1 < equipment.size())
+                {
+                    if (separator == std::string_view::npos) return false;
+                    packet.remove_prefix(separator + 1);
+                }
+                else if (separator != std::string_view::npos) return false;
+            }
+            const auto isHex = [](std::string_view text)
+            {
+                for (char c : text)
+                    if (!((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))) return false;
+                return true;
+            };
+            if (equipment[0].size() > 2048 || equipment[0].size() % 2 != 0 || !isHex(equipment[0])) return false;
+            if (!equipment[0].empty())
+            {
+                if (equipment[1].size() != 32 || !isHex(equipment[1])) return false;
+            }
+            else if (!equipment[1].empty()) return false;
+            const auto parseAmmo = [](std::string_view text, std::uint32_t& value)
+            {
+                const auto read = std::from_chars(text.data(), text.data() + text.size(), value);
+                return read.ec == std::errc{} && read.ptr == text.data() + text.size() && value <= 1000000;
+            };
+            if (!parseAmmo(equipment[2], parsed.Ammo) || !parseAmmo(equipment[3], parsed.MaxAmmo)
+                || parsed.Ammo > parsed.MaxAmmo) return false;
+            if (equipment[0].empty() && (parsed.Ammo != 0 || parsed.MaxAmmo != 0)) return false;
+            parsed.HasWeaponState = true;
+            parsed.WeaponClassHex = equipment[0];
+            parsed.WeaponInstanceId = equipment[1];
+        }
         result = std::move(parsed);
         return true;
     }
@@ -110,6 +163,9 @@ namespace StateProtocol
         vector("vel", state.Velocity);
         vector("rot", state.Rotation);
         packet << "|attack=" << state.AttackSequence;
+        if (state.HasWeaponState)
+            packet << "|weapon=" << state.WeaponClassHex << "|weaponid=" << state.WeaponInstanceId
+                << "|ammo=" << state.Ammo << "|maxammo=" << state.MaxAmmo;
         return packet.str();
     }
 }

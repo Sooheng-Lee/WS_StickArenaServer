@@ -133,6 +133,13 @@ int main(int argc, char* argv[])
         }
         if (packet.substr(0, 4) == "SA4|")
         {
+            if (packet.substr(0, 16) == "SA4|type=PICKUP|")
+            {
+                if (treasureWorld.Pickup(packet, received.Sender, playerRegistry.GetPlayers()))
+                    for (const auto& peer : playerRegistry.GetPlayers())
+                        for (const auto& update : treasureWorld.Packets()) sendPacket(update, {peer.Address, peer.Port});
+                return;
+            }
             if (treasureWorld.Hit(packet, received.Sender, playerRegistry.GetPlayers()))
             {
                 const auto idStart = packet.find("|id=");
@@ -160,6 +167,7 @@ int main(int argc, char* argv[])
             if (result == PlayerRegistry::StoreResult::EndpointMismatch
                 || result == PlayerRegistry::StoreResult::SessionClosed) return;
             sendPacket("SA2|type=REGISTER_ACK|session=" + player.PlayerId, received.Sender);
+            for (const auto& update : treasureWorld.Packets()) sendPacket(update, received.Sender);
             // Repeat peer metadata during registration heartbeats so lost UDP info recovers.
             // A new peer also gets the existing players' latest snapshots immediately.
             const auto players = playerRegistry.GetPlayers();

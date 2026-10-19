@@ -51,6 +51,22 @@ public static class TreasureUdpTests
                 late.Connect("127.0.0.1",port); Register(late,3);
                 Wait(late,"SA4|type=TREASURE_STATE|","|hits=3|",2);
             }
+            string pickup = "SA4|type=PICKUP|epoch=" + Field(first,"epoch") + "|session=" + Session(1) + "|id=1|seq=1";
+            Send(spoof, pickup);
+            Send(a, pickup); Send(a, pickup); // Lost grant / duplicate request is idempotent.
+            string collected = Wait(b,"SA4|type=TREASURE_STATE|","|owner=" + Session(1),2);
+            Wait(a,"SA4|type=TREASURE_STATE|","|owner=" + Session(1),2);
+            if (Field(collected,"id") != "1") throw new Exception("Wrong drop was collected");
+            Send(b, "SA3|type=PLAYER_STATE|session=" + Session(2) + "|seq=2|action=STATE|state=IDLE|input=0,0,0|pos=" + position + "|vel=0,0,0|rot=0,0,0|attack=0");
+            Thread.Sleep(50);
+            Send(b, pickup.Replace("session=" + Session(1), "session=" + Session(2)));
+            if (Field(Wait(b,"SA4|type=TREASURE_STATE|","|owner=",2),"owner") != Session(1))
+                throw new Exception("Competing pickup transferred ownership");
+            using(var late=new UdpClient(0)) {
+                late.Connect("127.0.0.1",port); Register(late,4);
+                string restored = Wait(late,"SA4|type=TREASURE_STATE|","|id=1|",2);
+                if (Field(restored,"owner") != Session(1)) throw new Exception("Collected drop revived for late joiner");
+            }
             Register(a,1); Register(b,2); // Keep clients alive across the second spawn interval.
             Wait(b,"SA4|type=TREASURE_STATE|","|id=2|",7);
         }

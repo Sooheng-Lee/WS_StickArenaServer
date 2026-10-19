@@ -75,9 +75,28 @@ SA4|type=HIT_ACK|epoch=<server-start>|id=1|seq=1
 
 서버에서 세 번째 유효 타격을 받으면 `hits=3`으로 전환하고 동일 ID/좌표의 Sword를 생성하도록 전송합니다. UE는 상자를 파괴하고 `BP_WeaponSword`를 해당 자리에 생성합니다. `SwordItemClass`로 드롭 클래스를 변경할 수 있습니다. 현재 상자와 드롭 상태를 생성/타격 즉시 및 1초마다 전송하여 패킷 유실과 중간 접속을 복구합니다. UE는 역순 상태와 중복 생성을 무시하고, 서버 epoch가 바뀌면 기존 동기화 액터를 정리합니다.
 
-이번 프로토콜은 상자와 아이템 **생성**을 동기화합니다. 아이템 습득/장착은 기존 클라이언트 동작이며 서버에는 습득 상태를 전송하지 않습니다. 따라서 드롭 기록은 서버 실행 동안 유지되고 신규 접속자에게 다시 표시됩니다.
+드롭 무기에 Overlap하면 클라이언트는 `SA4|type=PICKUP|epoch=<epoch>|session=<GUID>|id=<drop-id>|seq=<sequence>`를 요청합니다. 서버는 등록 endpoint, 서버 epoch, 드롭 상태와 플레이어 거리 350cm를 검사한 뒤 최초 요청자에게만 소유권을 부여합니다. 획득 상태는 기존 TREASURE_STATE 뒤에 `|owner=<GUID>`를 붙여 즉시 모든 클라이언트에 전송하고, 등록 시점 및 1초 주기로도 다시 보냅니다. 다른 플레이어의 요청과 중복 재시도는 소유권을 바꾸지 않습니다.
 
-검증: `./Tests/Test-Treasure.ps1`은 실제 UDP 서버에서 5초 생성, 두 클라이언트 브로드캐스트, 중복/다른 endpoint 타격, 세 번째 타격의 드롭, 중간 접속과 후속 생성을 검사합니다. `Tests/TreasureWorldTests.cpp`는 최대 개수와 타이머 초기화/보충, 거리 검사 및 타격 상태를 검사하는 독립 C++ 테스트입니다. UE 자동화 테스트는 `StickArena.Networking.TreasureBox`입니다.
+클라이언트는 서버 승인을 받은 당사자만 실제 장착하고 나머지는 같은 ID의 바닥 액터를 파괴합니다. 획득 요청은 근처에 머무는 동안 200ms 주기로 재시도합니다. 획득한 ID는 해당 epoch에서 영구적으로 기록하여 오래된 드롭 패킷, 중간 접속, 무기 소진/교체 뒤에도 바닥 아이템이 되살아나지 않습니다. 중복 승인은 탄약을 초기화하지 않으며, 늦게 도착한 이전 획득 승인은 더 최근에 장착한 무기를 교체하지 않습니다. 서버의 새 epoch에서는 드롭 ID 기록을 새로 시작합니다.
+
+## 무기 장착 동기화
+
+최신 클라이언트는 기존 SA3 스냅샷 뒤에 다음 필드를 붙입니다. `weapon`은 무기 Blueprint 클래스 경로를 UTF-8 hex로 인코딩한 값이고 `weaponid`는 무기 인스턴스 GUID입니다. 무장 해제는 두 문자열을 비우고 ammo/maxammo를 0으로 전송합니다.
+
+```text
+...|attack=0|weapon=<hex-class-path>|weaponid=<32-digit-GUID>|ammo=3|maxammo=10
+...|attack=0|weapon=|weaponid=|ammo=0|maxammo=0
+```
+
+서버는 확장 상태를 저장·브로드캐스트하고 중간 접속자의 등록 응답에도 최신 장착 상태를 포함합니다. 기존 11필드 SA3 메시지도 계속 허용합니다. 무기는 100ms 상태 heartbeat마다 재전송하므로 장착 순간의 패킷 유실도 복구됩니다. 동일 클래스의 다른 무기는 GUID로 구분하여 교체하고, 동일 상태를 반복 수신해도 액터를 중복 생성하지 않습니다.
+
+UE 원격 프록시는 수신 클래스로 무기 시각 액터를 만들고 `WeaponSocket`에 장착한 다음 공격을 재생합니다. 프록시는 로컬 월드 아이템을 Overlap으로 획득하거나 자체 공격 재생으로 사용 횟수를 차감하지 않습니다. 프록시가 제거되면 장착 액터도 정리합니다. 클라이언트의 무기 Blueprint는 `/Game/Items/Weapons/` 아래에 두고 양쪽 패키지에 포함해야 합니다.
+
+서버와 모든 클라이언트를 함께 업데이트해야 합니다. 이전 서버는 확장 SA3 메시지를 처리하지 못합니다. 업데이트된 서버 실행 파일은 `bin/x64/Release/VS_StickArenaServer.exe`입니다.
+
+검증: `Tests/Test-Weapons.ps1`, 기존 `Tests/Test-Multiplayer.ps1 -ServerPath ./bin/x64/Release/VS_StickArenaServer.exe`. Unreal 통합 테스트 `StickArena.Networking.WeaponEquipment`는 실제 최신 서버를 별도 포트에서 실행한 뒤 `-SAWeaponTestPort=<port>`로 실행합니다. 두 클라이언트 장착, 무기 인스턴스 교체, 늦은 접속, Overlap 차단, 해제를 검사합니다.
+
+검증: `./Tests/Test-Treasure.ps1 -ServerPath ./bin/x64/Release/VS_StickArenaServer.exe`는 실제 UDP 서버에서 생성/타격, 획득 브로드캐스트, 재시도, 경쟁 획득 거부, 중간 접속과 후속 생성을 검사합니다. `Tests/TreasureWorldTests.cpp`는 거리/endpoint 검증과 단일 소유권도 검사합니다. UE 테스트 `StickArena.Networking.TreasureBox`는 중복·역순 패킷, grant-before-drop과 재생성 방지를 검사합니다. `StickArena.Networking.TreasurePickup`은 `-SAWeaponTestPort=<port>`의 실제 서버를 통해 A의 Overlap→승인→장착, B의 바닥 액터 파괴, 늦은 접속과 원격 무기 복구를 검사합니다.
 
 ## 정상 종료 시 플레이어 제거
 

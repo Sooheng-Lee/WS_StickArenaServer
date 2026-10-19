@@ -73,6 +73,18 @@ int main()
     std::this_thread::sleep_for(std::chrono::milliseconds(210));
     assert(world.Hit(request(3), sender, players));
     assert(world.Packets()[0].find("|item=0|hits=3|") != std::string::npos);
+	const std::string pickup = "SA4|type=PICKUP|epoch=" + world.Epoch + "|session=" + p.PlayerId + "|id=1|seq=1";
+	assert(!world.Pickup(pickup, {"127.0.0.1",9002}, players));
+	assert(!world.Pickup(pickup, sender, far));
+	assert(!world.Pickup(pickup + "|extra=1", sender, players));
+	assert(world.Pickup(pickup, sender, players));
+	assert(world.Pickup(pickup, sender, players));
+	assert(world.Packets()[0].find("|owner=" + p.PlayerId) != std::string::npos);
+	auto competitor = players[0];
+	competitor.PlayerId = std::string(32, 'b'); competitor.Port = 9002;
+	players.push_back(competitor);
+	assert(world.Pickup("SA4|type=PICKUP|epoch=" + world.Epoch + "|session=" + competitor.PlayerId + "|id=1|seq=1", {competitor.Address,competitor.Port}, players));
+	assert(world.Packets()[0].find("|owner=" + p.PlayerId) != std::string::npos);
     assert(!world.Hit(request(4)+"|bad=1", sender, players));
     world.Tick(4.99, players); assert(world.Packets().size() == 5);
     world.Tick(.02, players); assert(world.Packets().size() == 6);

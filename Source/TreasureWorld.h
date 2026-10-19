@@ -94,6 +94,41 @@ public:
         return true;
     }
 
+    // The collected state is permanent for this epoch, including after disconnect.
+    // Returning true also sends the existing winner back to a competing claimant.
+    bool Pickup(std::string_view packet, const PlayerEndpoint& sender, const std::vector<PlayerRegistration>& players)
+    {
+        if (packet.size() > 256) return false;
+        std::istringstream input{std::string(packet)};
+        std::array<std::string, 6> fields;
+        for (auto& field : fields) if (!std::getline(input, field, '|')) return false;
+        std::string extra;
+        if (std::getline(input, extra, '|') || fields[0] != "SA4" || fields[1] != "type=PICKUP"
+            || fields[2] != "epoch=" + Epoch || fields[3].substr(0, 8) != "session="
+            || fields[4].substr(0, 3) != "id=" || fields[5].substr(0, 4) != "seq=") return false;
+        const auto parse = [](std::string_view text, std::uint64_t& value) {
+            const auto read = std::from_chars(text.data(), text.data() + text.size(), value);
+            return read.ec == std::errc{} && read.ptr == text.data() + text.size() && value > 0;
+        };
+        std::uint64_t id = 0, sequence = 0;
+        if (!parse(std::string_view(fields[4]).substr(3), id) || !parse(std::string_view(fields[5]).substr(4), sequence)) return false;
+        const std::string session = fields[3].substr(8);
+        const auto player = std::find_if(players.begin(), players.end(), [&](const auto& value) {
+            return value.PlayerId == session && value.Address == sender.Address && value.Port == sender.Port && value.HasState;
+        });
+        if (player == players.end()) return false;
+        const std::lock_guard<std::mutex> lock(Mutex);
+        const auto found = Objects.find(id);
+        if (found == Objects.end() || found->second.Hits != 3) return false;
+        auto& item = found->second;
+        if (!item.Owner.empty()) return true; // Retries and races never transfer ownership.
+        const auto& position = player->LatestState.Position;
+        const double dx = position.X - item.Position.X, dy = position.Y - item.Position.Y, dz = position.Z - item.Position.Z;
+        if (dx*dx + dy*dy + dz*dz > 350.0*350.0) return false;
+        item.Owner = session;
+        return true;
+    }
+
     std::vector<std::string> Packets() const
     {
         const std::lock_guard<std::mutex> lock(Mutex);
@@ -107,6 +142,7 @@ public:
                 << "SA4|type=TREASURE_STATE|epoch=" << Epoch << "|id=" << entry.first
                 << "|item=" << static_cast<unsigned>(box.Item) << "|hits=" << box.Hits
                 << "|pos=" << box.Position.X << ',' << box.Position.Y << ',' << box.Position.Z;
+            if (!box.Owner.empty()) out << "|owner=" << box.Owner;
             result.push_back(out.str());
         }
         return result;
@@ -117,6 +153,7 @@ private:
         TreasureItem Item = TreasureItem::Sword;
         Vector3 Position;
         unsigned Hits = 0;
+        std::string Owner;
         std::map<std::string, LastHit> LastHits;
     };
     mutable std::mutex Mutex;

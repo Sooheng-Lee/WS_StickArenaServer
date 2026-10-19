@@ -36,7 +36,12 @@
       <!-- Resolve the UCRT directory from the selected SDK even during IDE design-time builds. -->
       <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)Source;$(UniversalCRTSdkDir)Include\$(TargetUniversalCRTVersion)\ucrt;$(UniversalCRT_IncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <Link><SubSystem>Console</SubSystem><AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies></Link>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <!-- Keep UCRT discoverable when the IDE's inherited LibraryPath omits it. -->
+      <AdditionalLibraryDirectories>$(UniversalCRTSdkDir)Lib\$(TargetUniversalCRTVersion)\ucrt\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
