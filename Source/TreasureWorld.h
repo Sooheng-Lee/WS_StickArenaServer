@@ -2,40 +2,48 @@
 #include "PlayerRegistration.h"
 #include <map>
 #include <random>
+#include <numeric>
+#include "TreasureSpawnData.h"
 
 // Wire enum shared with ESATreasureItem in the Unreal client.
 enum class TreasureItem : unsigned { Sword = 0 };
 class TreasureWorld
 {
 public:
+    static constexpr unsigned HitsToBreak = 5;
     size_t MaxTreasureBoxes = 5;
     double MinimumPlayerSpawnDistance = 200.0; // XY center distance, Unreal centimeters.
     double MinimumBoxSpawnDistance = 250.0;
-    double SpawnRadius = 750.0;
-    size_t MaxSpawnAttempts = 128;
+    static constexpr double SpawnInterval = 20.0;
     double BoxSpawnCount = 0.0;
     const std::string Epoch = std::to_string(std::chrono::system_clock::now().time_since_epoch().count());
+
+    void LoadSpawnPoints(const std::filesystem::path& path)
+    {
+        auto points = ReadTreasureSpawnPoints(path);
+        const std::lock_guard<std::mutex> lock(Mutex);
+        if (!Objects.empty()) throw std::runtime_error("Spawn points must be loaded before spawning");
+        SpawnPoints = std::move(points);
+    }
+    size_t SpawnPointCount() const { return SpawnPoints.size(); }
 
     bool Tick(double seconds, const std::vector<PlayerRegistration>& players)
     {
         const std::lock_guard<std::mutex> lock(Mutex);
         size_t count = 0;
-        for (const auto& entry : Objects) if (entry.second.Hits < 3) ++count;
-        if (count >= MaxTreasureBoxes || players.empty()) { BoxSpawnCount = 0; return false; }
-        const auto anchor = std::find_if(players.begin(), players.end(), [](const auto& p) { return p.HasState; });
-        if (anchor == players.end()) return false;
-        BoxSpawnCount = (std::min)(5.0, BoxSpawnCount + (std::max)(0.0, seconds));
-        if (BoxSpawnCount < 5.0) return false;
-        // Check horizontal footprints: the UE client resolves terrain height afterwards.
-        // Every retry is bounded; a crowded area must never force an overlapping spawn.
-        std::uniform_real_distribution<double> offset(-SpawnRadius, SpawnRadius);
-        for (size_t attempt = 0; attempt < MaxSpawnAttempts; ++attempt)
+        for (const auto& entry : Objects) if (entry.second.Hits < HitsToBreak) ++count;
+        if (count >= MaxTreasureBoxes) { BoxSpawnCount = 0; return false; }
+        BoxSpawnCount = (std::min)(SpawnInterval, BoxSpawnCount + (std::max)(0.0, seconds));
+        if (BoxSpawnCount < SpawnInterval) return false;
+        BoxSpawnCount = 0; // No valid point means skip this interval, never arbitrary XY.
+        std::vector<size_t> candidates(SpawnPoints.size());
+        std::iota(candidates.begin(), candidates.end(), size_t{0});
+        std::shuffle(candidates.begin(), candidates.end(), Random);
+        for (const size_t candidate : candidates)
         {
             Object box;
-            box.Position = anchor->LatestState.Position;
-            box.Position.X += offset(Random);
-            box.Position.Y += offset(Random);
-            box.Position.Z -= 88.0;
+            box.Position = SpawnPoints[candidate].Position;
+            box.SpawnPointId = SpawnPoints[candidate].Id;
             const auto tooClose = [&](const Vector3& position, double clearance)
             {
                 const double dx = position.X - box.Position.X;
@@ -46,13 +54,13 @@ public:
                 { return player.HasState && tooClose(player.LatestState.Position, MinimumPlayerSpawnDistance); });
             if (nearPlayer) continue;
             const bool nearBox = std::any_of(Objects.begin(), Objects.end(), [&](const auto& entry)
-                { return entry.second.Hits < 3 && tooClose(entry.second.Position, MinimumBoxSpawnDistance); });
+                { return entry.second.Hits < HitsToBreak && (entry.second.SpawnPointId == box.SpawnPointId || tooClose(entry.second.Position, MinimumBoxSpawnDistance)); });
             if (nearBox) continue;
             Objects.emplace(++NextId, std::move(box));
             BoxSpawnCount = 0;
             return true;
         }
-        // Keep the elapsed five seconds and retry next tick without consuming an ID.
+        // All exported points are blocked; skip until the next twenty-second interval.
         return false;
     }
 
@@ -81,7 +89,7 @@ public:
         const auto found = Objects.find(id);
         if (found == Objects.end()) return false;
         auto& box = found->second;
-        if (box.Hits >= 3) return true;
+        if (box.Hits >= HitsToBreak) return true;
         const auto& position = player->LatestState.Position;
         const double dx = position.X - box.Position.X, dy = position.Y - box.Position.Y, dz = position.Z - box.Position.Z;
         if (dx*dx + dy*dy + dz*dz > 350.0*350.0) return false;
@@ -119,7 +127,7 @@ public:
         if (player == players.end()) return false;
         const std::lock_guard<std::mutex> lock(Mutex);
         const auto found = Objects.find(id);
-        if (found == Objects.end() || found->second.Hits != 3) return false;
+        if (found == Objects.end() || found->second.Hits != HitsToBreak) return false;
         auto& item = found->second;
         if (!item.Owner.empty()) return true; // Retries and races never transfer ownership.
         const auto& position = player->LatestState.Position;
@@ -153,11 +161,13 @@ private:
         TreasureItem Item = TreasureItem::Sword;
         Vector3 Position;
         unsigned Hits = 0;
+        std::string SpawnPointId;
         std::string Owner;
         std::map<std::string, LastHit> LastHits;
     };
     mutable std::mutex Mutex;
     std::map<std::uint64_t, Object> Objects;
+    std::vector<TreasureSpawnPoint> SpawnPoints;
     std::uint64_t NextId = 0;
     std::mt19937 Random{std::random_device{}()};
 };

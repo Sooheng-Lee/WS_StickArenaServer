@@ -63,7 +63,11 @@ Unreal 자동화 테스트: `StickArena.Networking.EnemyCharacter`, `StickArena.
 
 ## TreasureBox 동기화
 
-`Source/TreasureWorld.h`의 `MaxTreasureBoxes` 기본값은 5입니다. 활성 상자가 최대 미만이면 초 단위 `BoxSpawnCount`를 누적하고 5초마다 상자를 한 개 생성한 뒤 0으로 초기화합니다. 최대 개수이거나 접속자가 없으면 누적을 초기화합니다. 유효한 플레이어 위치가 도착한 이후 생성하며, 활성 플레이어 주변 XY ±750cm 범위와 발 높이를 후보 좌표로 만듭니다. 상태가 도착한 모든 플레이어와 XY 중심 거리 200cm 이상, 아직 파괴되지 않은 모든 상자와 250cm 이상 떨어진 후보만 허용합니다. 높이가 달라도 XY 기준으로 제외하며 파괴되어 아이템으로 바뀐 상자는 상자 간격 검사에서 제외합니다. 한 tick에서 최대 128회 후보를 검사하고 안전한 위치가 없으면 생성하지 않습니다. 이때 `BoxSpawnCount`는 5초로 유지하여 다음 tick에 다시 시도하고, 실제 생성에 성공해야 0으로 초기화합니다. 거리와 범위, 시도 횟수는 `MinimumPlayerSpawnDistance`, `MinimumBoxSpawnDistance`, `SpawnRadius`, `MaxSpawnAttempts`로 조절합니다. UE에서는 해당 XY의 지면을 trace하여 표시 높이를 맞춥니다. 서버에 맵 충돌 정보가 없으므로 이 방식은 맵 전체의 안전한 스폰 지점 검증을 제공하지 않습니다.
+`Source/TreasureWorld.h`의 `MaxTreasureBoxes` 기본값은 5입니다. 서버는 시작 시 실행 파일 옆의 `Main_LevelObjects.json`을 읽고 `treasure_box.spawn_points`의 좌표 112개를 로드합니다. 빌드하면 JSON도 실행 파일 옆에 복사됩니다. 다른 경로를 사용할 때는 `VS_StickArenaServer.exe [port] [spawn-data.json]`으로 지정합니다. 누락·잘못된 JSON, 지원하지 않는 맵/스키마, 중복 ID/XY 좌표, 허용 폴더 밖 지점은 오류를 출력하고 서버를 시작하지 않습니다.
+
+상자가 최대 미만이면 서버 실행 후 초 단위 `BoxSpawnCount`를 누적하여 **20초마다 한 개** 생성합니다. 접속자가 없어도 타이머가 진행되며 최대 개수이면 누적을 초기화합니다. 매 회차 전체 허용 지점을 무작위 순서로 한 번씩 검사합니다. 상태가 도착한 모든 플레이어와 XY 거리 200cm 이상, 활성 상자와 250cm 이상 떨어진 지점만 선택하며 같은 지점에 활성 상자를 두 개 생성하지 않습니다. 플레이어에 가까우면 다른 지점을 검사하고, 전부 막혔으면 해당 회차를 생략하고 다음 20초에 재시도합니다. 임의 XY나 플레이어 주변 좌표로 대체하지 않습니다. 파괴된 상자의 지점은 다시 사용할 수 있습니다. 간격은 `MinimumPlayerSpawnDistance`, `MinimumBoxSpawnDistance`, 주기는 `SpawnInterval`에서 조절합니다.
+
+패킷에는 JSON의 `position` 좌표를 그대로 담습니다. 서버는 Unreal 월드의 실시간 충돌을 조회하지 않으며, UE의 기존 지면 trace는 유지합니다. JSON의 내보내기 시점 지형 검증과 UE의 런타임 물리 검증은 별개입니다. JSON 파서는 포함된 nlohmann/json 3.11.3 (`Source/ThirdParty/nlohmann`, MIT 라이선스)을 사용합니다.
 
 ```text
 SA4|type=TREASURE_STATE|epoch=<server-start>|id=1|item=0|hits=0|pos=100,200,30
@@ -73,7 +77,7 @@ SA4|type=HIT_ACK|epoch=<server-start>|id=1|seq=1
 
 `TreasureItem::Sword`와 UE `ESATreasureItem::Sword`의 wire 값은 0입니다. 상자 ID는 서버 실행 중 재사용하지 않습니다. 서버는 등록 세션/송신 endpoint와 거리 350cm, 플레이어별 동일 상자 타격 간격 200ms를 검사합니다. 타격 요청은 200ms마다 최대 2초 동안 같은 시퀀스로 재전송하고, 서버는 중복 요청을 다시 세지 않고 ACK를 보냅니다. UE는 로컬 플레이어의 공격 notify에서만 요청하여 원격 캐릭터의 공격 재생으로 인한 중복 타격을 막습니다.
 
-서버에서 세 번째 유효 타격을 받으면 `hits=3`으로 전환하고 동일 ID/좌표의 Sword를 생성하도록 전송합니다. UE는 상자를 파괴하고 `BP_WeaponSword`를 해당 자리에 생성합니다. `SwordItemClass`로 드롭 클래스를 변경할 수 있습니다. 현재 상자와 드롭 상태를 생성/타격 즉시 및 1초마다 전송하여 패킷 유실과 중간 접속을 복구합니다. UE는 역순 상태와 중복 생성을 무시하고, 서버 epoch가 바뀌면 기존 동기화 액터를 정리합니다.
+서버에서 다섯 번째 유효 타격을 받으면 `hits=5`으로 전환하고 동일 ID/좌표의 Sword를 생성하도록 전송합니다. UE는 상자를 파괴하고 `BP_WeaponSword`를 해당 자리에 생성합니다. `SwordItemClass`로 드롭 클래스를 변경할 수 있습니다. 현재 상자와 드롭 상태를 생성/타격 즉시 및 1초마다 전송하여 패킷 유실과 중간 접속을 복구합니다. UE는 역순 상태와 중복 생성을 무시하고, 서버 epoch가 바뀌면 기존 동기화 액터를 정리합니다.
 
 드롭 무기에 Overlap하면 클라이언트는 `SA4|type=PICKUP|epoch=<epoch>|session=<GUID>|id=<drop-id>|seq=<sequence>`를 요청합니다. 서버는 등록 endpoint, 서버 epoch, 드롭 상태와 플레이어 거리 350cm를 검사한 뒤 최초 요청자에게만 소유권을 부여합니다. 획득 상태는 기존 TREASURE_STATE 뒤에 `|owner=<GUID>`를 붙여 즉시 모든 클라이언트에 전송하고, 등록 시점 및 1초 주기로도 다시 보냅니다. 다른 플레이어의 요청과 중복 재시도는 소유권을 바꾸지 않습니다.
 
@@ -105,3 +109,17 @@ UE `USAUdpClientComponent`는 `FCoreDelegates::OnPreExit` 및 `EndPlay`에서 �
 강제 종료, 크래시, 네트워크 장애 등으로 퇴장 패킷이 도착하지 않으면 마지막 등록/상태 수신 후 10초 비활성 정리가 적용됩니다(정리 주기 1초). 퇴장 패킷 제거는 `reason=LEAVE`, 비활성 제거는 `reason=TIMEOUT`으로 콘솔에 플레이어 ID·이름·IP/포트·삭제 당시 남은 인원을 출력합니다. 삭제 정보는 벡터를 잠근 상태에서 복사하고 로그는 잠금을 해제한 뒤 출력하여 중복 삭제 로그를 방지합니다. 프로세스가 즉시 사라지는 경우에는 종료 패킷을 보장할 수 없으므로 서버 타임아웃이 최종 정리를 담당합니다. 다른 클라이언트의 원격 캐릭터는 기존 10초 수신 타임아웃으로 정리됩니다. 벡터 제거와 송신 주소 검증은 `Tests/DisconnectTests.cpp`에서 검사합니다.
 
 정상 종료와 종료 통지 없는 소켓 단절의 실제 UDP 제거/로그 검증: `./Tests/Test-Disconnect.ps1`.
+
+## Crystal Tower (SA5)
+
+맵 JSON의 `crystal_towers[].actor_name`을 고정 ID로 사용합니다. 서버가 초기 점등, 5회 타격 후 소등, 25~35초 무작위 재점등을 결정합니다. 마지막 타격자와 효과도 서버가 결정하며 HP +20/5초, ATK +5/20초, DEF +5/20초 중 하나를 동일 확률로 부여합니다. 클라이언트는 남은 효과 시간만 적용하며 동일 타워/주기 보상을 다시 적용하지 않습니다.
+
+```text
+SA5|type=CRYSTAL_HIT|epoch=<server>|session=<GUID>|id=SACrystalTower_0|seq=1|cycle=0
+SA5|type=CRYSTAL_ACK|epoch=<server>|id=SACrystalTower_0|seq=1
+SA5|type=CRYSTAL_STATE|epoch=<server>|id=SACrystalTower_0|rev=1|cycle=0|hits=0|lit=1|winner=|effect=0|remaining=0.000000
+```
+
+`effect`는 0=HP 회복, 1=ATK, 2=DEF입니다. 클라이언트는 서버 상태를 받아 메시 흔들림과 조명 깜빡임을 재생하며 로컬 타이머로 재점등하지 않습니다. 서버는 등록된 세션/송신 주소, 350cm 거리, 0.2초 타격 간격, 시퀀스와 주기를 검증합니다. 상태 변경 즉시, 접속 시, 1초마다 스냅샷을 보내 중간 접속과 패킷 유실을 복구합니다. UE와 서버를 함께 업데이트해야 합니다.
+
+추가 검증: `Tests/CrystalWorldTests.cpp`, `Tests/TreasureWorldTests.cpp`, `Tests/TestCrystalUdp.py` (Python 3 표준 라이브러리), UE 자동화 `StickArena.LevelObjects.CrystalTowerEffect`, `StickArena.Status.CrystalBlessings`, `StickArena.Networking.TreasureBox`.

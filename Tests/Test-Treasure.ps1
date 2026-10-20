@@ -20,7 +20,7 @@ $errors = $process.StandardError.ReadToEndAsync()
 try {
     Start-Sleep -Milliseconds 300
     [TreasureUdpTests]::Run($port)
-    Write-Output 'PASS: real UDP spawn/hits, pickup broadcast, duplicate retry, competing pickup rejection, collected late-join state, and refill.'
+    Write-Output 'PASS: real UDP 20-second spawn/hits, pickup broadcast, duplicate retry, competing pickup rejection, collected late-join state, and refill.'
 }
 finally {
     if (!$process.HasExited) { $process.Kill() }

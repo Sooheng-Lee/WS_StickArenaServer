@@ -2,6 +2,7 @@
 #include "PlayerRegistration.h"
 #include "PacketWorkers.h"
 #include "TreasureWorld.h"
+#include "CrystalWorld.h"
 
 namespace
 {
@@ -32,12 +33,12 @@ namespace
 int main(int argc, char* argv[])
 {
     int port = 7777;
-    if (argc > 2)
+    if (argc > 3)
     {
-        std::cerr << "Usage: VS_StickArenaServer.exe [port]\n";
+        std::cerr << "Usage: VS_StickArenaServer.exe [port] [spawn-data.json]\n";
         return 1;
     }
-    if (argc == 2)
+    if (argc >= 2)
     {
         const std::string_view argument(argv[1]);
         const auto result = std::from_chars(argument.data(), argument.data() + argument.size(), port);
@@ -46,6 +47,26 @@ int main(int argc, char* argv[])
             std::cerr << "Port must be an integer from 1 to 65535.\n";
             return 1;
         }
+    }
+
+    TreasureWorld treasureWorld;
+    CrystalWorld crystalWorld;
+    try
+    {
+        std::array<wchar_t, 32768> executable{};
+        const DWORD length = GetModuleFileNameW(nullptr, executable.data(), static_cast<DWORD>(executable.size()));
+        if (!length || length >= executable.size()) throw std::runtime_error("Cannot resolve server executable path");
+        const std::filesystem::path spawnPath = argc == 3 ? std::filesystem::u8path(argv[2])
+            : std::filesystem::path(executable.data()).parent_path() / "Main_LevelObjects.json";
+        treasureWorld.LoadSpawnPoints(spawnPath);
+        crystalWorld.Load(spawnPath);
+        std::cout << "Loaded treasure spawn data: " << spawnPath.u8string()
+            << " | points=" << treasureWorld.SpawnPointCount() << " | interval=20s\n";
+    }
+    catch (const std::exception& error)
+    {
+        std::cerr << "Failed to load treasure spawn data: " << error.what() << '\n';
+        return 1;
     }
 
     WSADATA data{};
@@ -93,7 +114,7 @@ int main(int argc, char* argv[])
     std::cout << std::unitbuf << "StickArena UDP server listening on 0.0.0.0:" << port
         << "\nWaiting for player actions. Press Ctrl+C to stop.\n";
     PlayerRegistry playerRegistry;
-    TreasureWorld treasureWorld;
+
     std::mutex logMutex;
     const auto sendPacket = [&](const std::string& packet, const PlayerEndpoint& recipient)
     {
@@ -128,6 +149,20 @@ int main(int argc, char* argv[])
                 std::cout << "Player left " << session << " | players=" << removal.RemainingPlayers
                     << " | reason=LEAVE | name=" << removal.Player.PlayerName
                     << " | endpoint=" << removal.Player.Address << ':' << removal.Player.Port << '\n';
+            }
+            return;
+        }
+        if (packet.substr(0, 4) == "SA5|")
+        {
+            if (crystalWorld.Hit(packet, received.Sender, playerRegistry.GetPlayers()))
+            {
+                const auto idStart = packet.find("|id=");
+                const auto cycleStart = packet.find("|cycle=");
+                sendPacket("SA5|type=CRYSTAL_ACK|epoch=" + crystalWorld.Epoch
+                    + std::string(packet.substr(idStart, cycleStart-idStart)), received.Sender);
+                const auto updates = crystalWorld.Packets();
+                for (const auto& peer : playerRegistry.GetPlayers())
+                    for (const auto& update : updates) sendPacket(update, {peer.Address,peer.Port});
             }
             return;
         }
@@ -168,6 +203,7 @@ int main(int argc, char* argv[])
                 || result == PlayerRegistry::StoreResult::SessionClosed) return;
             sendPacket("SA2|type=REGISTER_ACK|session=" + player.PlayerId, received.Sender);
             for (const auto& update : treasureWorld.Packets()) sendPacket(update, received.Sender);
+            for (const auto& update : crystalWorld.Packets()) sendPacket(update, received.Sender);
             // Repeat peer metadata during registration heartbeats so lost UDP info recovers.
             // A new peer also gets the existing players' latest snapshots immediately.
             const auto players = playerRegistry.GetPlayers();
@@ -225,6 +261,12 @@ int main(int argc, char* argv[])
             for (const auto& peer : playerRegistry.GetPlayers())
                 for (const auto& update : updates) sendPacket(update, {peer.Address, peer.Port});
         }
+        if (crystalWorld.Tick(std::chrono::duration<double>(now-lastTick).count()))
+        {
+            const auto updates = crystalWorld.Packets();
+            for (const auto& peer : playerRegistry.GetPlayers())
+                for (const auto& update : updates) sendPacket(update, {peer.Address,peer.Port});
+        }
         lastTick = now;
         if (now - lastCleanup >= std::chrono::seconds(1))
         {
@@ -239,6 +281,8 @@ int main(int argc, char* argv[])
             const auto updates = treasureWorld.Packets();
             for (const auto& peer : playerRegistry.GetPlayers())
                 for (const auto& update : updates) sendPacket(update, {peer.Address, peer.Port});
+            for (const auto& peer : playerRegistry.GetPlayers())
+                for (const auto& update : crystalWorld.Packets()) sendPacket(update, {peer.Address,peer.Port});
             lastCleanup = now;
         }
         sockaddr_in sender{};

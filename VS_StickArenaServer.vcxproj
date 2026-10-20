@@ -55,6 +55,14 @@
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\PacketWorkers.h" />
     <ClInclude Include="Source\TreasureWorld.h" />
+    <ClInclude Include="Source\CrystalWorld.h" />
+    <ClInclude Include="Source\TreasureSpawnData.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Main_LevelObjects.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Target Name="CopyTreasureSpawnData" AfterTargets="Build">
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)Main_LevelObjects.json" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

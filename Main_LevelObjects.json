@@ -1,0 +1,4116 @@
+{
+  "schema_version": 1,
+  "map": "/Game/Maps/Main",
+  "source": "saved_map",
+  "coordinate_system": {
+    "space": "Unreal world",
+    "unit": "cm",
+    "up_axis": "Z",
+    "rotation_unit": "degrees"
+  },
+  "treasure_box": {
+    "class_path": "/Script/UE_StickArenaDemo.SATreasureBox",
+    "mesh": "/Game/Maps/StaticMeshes/SM_TreasureBox.SM_TreasureBox",
+    "spawn_rules": {
+      "tiles_only": true,
+      "allowed_tile_folder": "Arena/Floor/Tiles",
+      "selection": "random_without_replacement_from_spawn_points",
+      "allow_arbitrary_xy": false,
+      "fallback_when_no_valid_point": "skip_spawn",
+      "max_boxes_per_point": 1,
+      "surface_clearance_cm": 2.0,
+      "require_runtime_collision_check": true,
+      "require_runtime_support_on_exported_tile": true,
+      "trace_channel": "Visibility",
+      "trace_complex": false,
+      "export_validation": "upright_hex_tile_surface_and_conservative_obstacle_bounds"
+    },
+    "tile_count": 199,
+    "spawn_point_count": 112,
+    "spawn_points": [
+      {
+        "actor_name": "StaticMeshActor_2",
+        "actor_label": "Arena_Tile_003_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_2",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_003_Grass",
+        "surface_position": {
+          "x": -3300.0,
+          "y": 173.205081,
+          "z": 120.0
+        },
+        "position": {
+          "x": -3300.0,
+          "y": 173.205081,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_3",
+        "actor_label": "Arena_Tile_004_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_3",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_004_Grass",
+        "surface_position": {
+          "x": -3000.0,
+          "y": -692.820323,
+          "z": 120.0
+        },
+        "position": {
+          "x": -3000.0,
+          "y": -692.820323,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_5",
+        "actor_label": "Arena_Tile_006_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_5",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_006_Grass",
+        "surface_position": {
+          "x": -3000.0,
+          "y": 0.0,
+          "z": 140.0
+        },
+        "position": {
+          "x": -3000.0,
+          "y": 0.0,
+          "z": 142.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_10",
+        "actor_label": "Arena_Tile_011_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_10",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_011_Grass",
+        "surface_position": {
+          "x": -2700.0,
+          "y": 173.205081,
+          "z": 140.0
+        },
+        "position": {
+          "x": -2700.0,
+          "y": 173.205081,
+          "z": 142.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_11",
+        "actor_label": "Arena_Tile_012_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_11",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_012_Grass",
+        "surface_position": {
+          "x": -2700.0,
+          "y": 519.615242,
+          "z": 120.0
+        },
+        "position": {
+          "x": -2700.0,
+          "y": 519.615242,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_13",
+        "actor_label": "Arena_Tile_014_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_13",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_014_Grass",
+        "surface_position": {
+          "x": -2400.0,
+          "y": -346.410162,
+          "z": 140.0
+        },
+        "position": {
+          "x": -2400.0,
+          "y": -346.410162,
+          "z": 142.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_14",
+        "actor_label": "Arena_Tile_015_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_14",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_015_Grass",
+        "surface_position": {
+          "x": -2400.0,
+          "y": 0.0,
+          "z": 140.0
+        },
+        "position": {
+          "x": -2400.0,
+          "y": 0.0,
+          "z": 142.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_15",
+        "actor_label": "Arena_Tile_016_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_15",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_016_Grass",
+        "surface_position": {
+          "x": -2400.0,
+          "y": 346.410162,
+          "z": 120.0
+        },
+        "position": {
+          "x": -2400.0,
+          "y": 346.410162,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_20",
+        "actor_label": "Arena_Tile_020_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_20",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_020_Grass",
+        "surface_position": {
+          "x": -2100.0,
+          "y": -173.205081,
+          "z": 120.0
+        },
+        "position": {
+          "x": -2100.0,
+          "y": -173.205081,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_21",
+        "actor_label": "Arena_Tile_021_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_21",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_021_Grass",
+        "surface_position": {
+          "x": -2100.0,
+          "y": 173.205081,
+          "z": 120.0
+        },
+        "position": {
+          "x": -2100.0,
+          "y": 173.205081,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_22",
+        "actor_label": "Arena_Tile_022_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_22",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_022_Grass",
+        "surface_position": {
+          "x": -2100.0,
+          "y": 519.615242,
+          "z": 120.0
+        },
+        "position": {
+          "x": -2100.0,
+          "y": 519.615242,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_23",
+        "actor_label": "Arena_Tile_023_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_23",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_023_Grass",
+        "surface_position": {
+          "x": -2100.0,
+          "y": 866.025404,
+          "z": 120.0
+        },
+        "position": {
+          "x": -2100.0,
+          "y": 866.025404,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_26",
+        "actor_label": "Arena_Tile_026_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_26",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_026_Sand",
+        "surface_position": {
+          "x": -1800.0,
+          "y": -1039.230485,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1800.0,
+          "y": -1039.230485,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_27",
+        "actor_label": "Arena_Tile_027_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_27",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_027_Sand",
+        "surface_position": {
+          "x": -1800.0,
+          "y": -692.820323,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1800.0,
+          "y": -692.820323,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_28",
+        "actor_label": "Arena_Tile_028_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_28",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_028_Sand",
+        "surface_position": {
+          "x": -1800.0,
+          "y": -346.410162,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1800.0,
+          "y": -346.410162,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_30",
+        "actor_label": "Arena_Tile_030_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_30",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_030_Sand",
+        "surface_position": {
+          "x": -1800.0,
+          "y": 346.410162,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1800.0,
+          "y": 346.410162,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_31",
+        "actor_label": "Arena_Tile_031_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_31",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_031_Sand",
+        "surface_position": {
+          "x": -1800.0,
+          "y": 692.820323,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1800.0,
+          "y": 692.820323,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_32",
+        "actor_label": "Arena_Tile_032_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_32",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_032_Sand",
+        "surface_position": {
+          "x": -1800.0,
+          "y": 1039.230485,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1800.0,
+          "y": 1039.230485,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_35",
+        "actor_label": "Arena_Tile_035_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_35",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_035_Sand",
+        "surface_position": {
+          "x": -1500.0,
+          "y": -1212.435565,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1500.0,
+          "y": -1212.435565,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_36",
+        "actor_label": "Arena_Tile_036_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_36",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_036_Sand",
+        "surface_position": {
+          "x": -1500.0,
+          "y": -866.025404,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1500.0,
+          "y": -866.025404,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_37",
+        "actor_label": "Arena_Tile_037_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_37",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_037_Sand",
+        "surface_position": {
+          "x": -1500.0,
+          "y": -519.615242,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1500.0,
+          "y": -519.615242,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_38",
+        "actor_label": "Arena_Tile_038_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_38",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_038_Sand",
+        "surface_position": {
+          "x": -1500.0,
+          "y": 519.615242,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1500.0,
+          "y": 519.615242,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_39",
+        "actor_label": "Arena_Tile_039_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_39",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_039_Sand",
+        "surface_position": {
+          "x": -1500.0,
+          "y": 866.025404,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1500.0,
+          "y": 866.025404,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_40",
+        "actor_label": "Arena_Tile_040_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_40",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_040_Sand",
+        "surface_position": {
+          "x": -1500.0,
+          "y": 1212.435565,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1500.0,
+          "y": 1212.435565,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_44",
+        "actor_label": "Arena_Tile_044_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_44",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_044_Sand",
+        "surface_position": {
+          "x": -1200.0,
+          "y": -1039.230485,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1200.0,
+          "y": -1039.230485,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_45",
+        "actor_label": "Arena_Tile_045_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_45",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_045_Sand",
+        "surface_position": {
+          "x": -1200.0,
+          "y": -692.820323,
+          "z": 110.0
+        },
+        "position": {
+          "x": -1200.0,
+          "y": -692.820323,
+          "z": 112.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_46",
+        "actor_label": "Arena_Tile_046_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_46",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_046_Sand",
+        "surface_position": {
+          "x": -1200.0,
+          "y": -346.410162,
+          "z": 110.0
+        },
+        "position": {
+          "x": -1200.0,
+          "y": -346.410162,
+          "z": 112.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_47",
+        "actor_label": "Arena_Tile_047_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_47",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_047_Sand",
+        "surface_position": {
+          "x": -1200.0,
+          "y": 346.410162,
+          "z": 110.0
+        },
+        "position": {
+          "x": -1200.0,
+          "y": 346.410162,
+          "z": 112.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_48",
+        "actor_label": "Arena_Tile_048_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_48",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_048_Sand",
+        "surface_position": {
+          "x": -1200.0,
+          "y": 692.820323,
+          "z": 110.0
+        },
+        "position": {
+          "x": -1200.0,
+          "y": 692.820323,
+          "z": 112.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_49",
+        "actor_label": "Arena_Tile_049_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_49",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_049_Sand",
+        "surface_position": {
+          "x": -1200.0,
+          "y": 1039.230485,
+          "z": 120.0
+        },
+        "position": {
+          "x": -1200.0,
+          "y": 1039.230485,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_52",
+        "actor_label": "Arena_Tile_052_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_52",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_052_Grass",
+        "surface_position": {
+          "x": -900.0,
+          "y": -1905.255888,
+          "z": 120.0
+        },
+        "position": {
+          "x": -900.0,
+          "y": -1905.255888,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_55",
+        "actor_label": "Arena_Tile_055_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_55",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_055_Stone",
+        "surface_position": {
+          "x": -900.0,
+          "y": -519.615242,
+          "z": 100.0
+        },
+        "position": {
+          "x": -900.0,
+          "y": -519.615242,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_58",
+        "actor_label": "Arena_Tile_058_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_58",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_058_Stone",
+        "surface_position": {
+          "x": -900.0,
+          "y": 519.615242,
+          "z": 100.0
+        },
+        "position": {
+          "x": -900.0,
+          "y": 519.615242,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_61",
+        "actor_label": "Arena_Tile_061_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_61",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_061_Grass",
+        "surface_position": {
+          "x": -900.0,
+          "y": 1905.255888,
+          "z": 120.0
+        },
+        "position": {
+          "x": -900.0,
+          "y": 1905.255888,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_62",
+        "actor_label": "Arena_Tile_062_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_62",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_062_Grass",
+        "surface_position": {
+          "x": -600.0,
+          "y": -2078.460969,
+          "z": 120.0
+        },
+        "position": {
+          "x": -600.0,
+          "y": -2078.460969,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_66",
+        "actor_label": "Arena_Tile_066_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_66",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_066_Sand",
+        "surface_position": {
+          "x": -600.0,
+          "y": 0.0,
+          "z": 100.0
+        },
+        "position": {
+          "x": -600.0,
+          "y": 0.0,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_70",
+        "actor_label": "Arena_Tile_070_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_70",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_070_Grass",
+        "surface_position": {
+          "x": -600.0,
+          "y": 2078.460969,
+          "z": 120.0
+        },
+        "position": {
+          "x": -600.0,
+          "y": 2078.460969,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_71",
+        "actor_label": "Arena_Tile_071_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_71",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_071_Grass",
+        "surface_position": {
+          "x": -300.0,
+          "y": -2251.66605,
+          "z": 120.0
+        },
+        "position": {
+          "x": -300.0,
+          "y": -2251.66605,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_72",
+        "actor_label": "Arena_Tile_072_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_72",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_072_Sand",
+        "surface_position": {
+          "x": -300.0,
+          "y": -1905.255888,
+          "z": 120.0
+        },
+        "position": {
+          "x": -300.0,
+          "y": -1905.255888,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_76",
+        "actor_label": "Arena_Tile_076_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_76",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_076_Sand",
+        "surface_position": {
+          "x": -300.0,
+          "y": -519.615242,
+          "z": 100.0
+        },
+        "position": {
+          "x": -300.0,
+          "y": -519.615242,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_77",
+        "actor_label": "Arena_Tile_077_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_77",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_077_Sand",
+        "surface_position": {
+          "x": -300.0,
+          "y": -173.205081,
+          "z": 100.0
+        },
+        "position": {
+          "x": -300.0,
+          "y": -173.205081,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_78",
+        "actor_label": "Arena_Tile_078_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_78",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_078_Sand",
+        "surface_position": {
+          "x": -300.0,
+          "y": 173.205081,
+          "z": 100.0
+        },
+        "position": {
+          "x": -300.0,
+          "y": 173.205081,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_79",
+        "actor_label": "Arena_Tile_079_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_79",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_079_Sand",
+        "surface_position": {
+          "x": -300.0,
+          "y": 519.615242,
+          "z": 100.0
+        },
+        "position": {
+          "x": -300.0,
+          "y": 519.615242,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_83",
+        "actor_label": "Arena_Tile_083_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_83",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_083_Sand",
+        "surface_position": {
+          "x": -300.0,
+          "y": 1905.255888,
+          "z": 120.0
+        },
+        "position": {
+          "x": -300.0,
+          "y": 1905.255888,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_84",
+        "actor_label": "Arena_Tile_084_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_84",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_084_Grass",
+        "surface_position": {
+          "x": -300.0,
+          "y": 2251.66605,
+          "z": 120.0
+        },
+        "position": {
+          "x": -300.0,
+          "y": 2251.66605,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_86",
+        "actor_label": "Arena_Tile_086_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_86",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_086_Sand",
+        "surface_position": {
+          "x": 0.0,
+          "y": -2078.460969,
+          "z": 120.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": -2078.460969,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_87",
+        "actor_label": "Arena_Tile_087_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_87",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_087_Sand",
+        "surface_position": {
+          "x": 0.0,
+          "y": -1732.050808,
+          "z": 120.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": -1732.050808,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_88",
+        "actor_label": "Arena_Tile_088_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_88",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_088_Sand",
+        "surface_position": {
+          "x": 0.0,
+          "y": -1385.640646,
+          "z": 110.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": -1385.640646,
+          "z": 112.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_89",
+        "actor_label": "Arena_Tile_089_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_89",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_089_Stone",
+        "surface_position": {
+          "x": 0.0,
+          "y": -1039.230485,
+          "z": 100.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": -1039.230485,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_91",
+        "actor_label": "Arena_Tile_091_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_91",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_091_Sand",
+        "surface_position": {
+          "x": 0.0,
+          "y": -346.410162,
+          "z": 100.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": -346.410162,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_92",
+        "actor_label": "Arena_Tile_092_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_92",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_092_Sand",
+        "surface_position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 100.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_93",
+        "actor_label": "Arena_Tile_093_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_93",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_093_Sand",
+        "surface_position": {
+          "x": 0.0,
+          "y": 346.410162,
+          "z": 100.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": 346.410162,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_95",
+        "actor_label": "Arena_Tile_095_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_95",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_095_Stone",
+        "surface_position": {
+          "x": 0.0,
+          "y": 1039.230485,
+          "z": 100.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": 1039.230485,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_96",
+        "actor_label": "Arena_Tile_096_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_96",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_096_Sand",
+        "surface_position": {
+          "x": 0.0,
+          "y": 1385.640646,
+          "z": 110.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": 1385.640646,
+          "z": 112.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_97",
+        "actor_label": "Arena_Tile_097_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_97",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_097_Sand",
+        "surface_position": {
+          "x": 0.0,
+          "y": 1732.050808,
+          "z": 120.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": 1732.050808,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_98",
+        "actor_label": "Arena_Tile_098_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_98",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_098_Sand",
+        "surface_position": {
+          "x": 0.0,
+          "y": 2078.460969,
+          "z": 120.0
+        },
+        "position": {
+          "x": 0.0,
+          "y": 2078.460969,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_100",
+        "actor_label": "Arena_Tile_100_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_100",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_100_Grass",
+        "surface_position": {
+          "x": 300.0,
+          "y": -2251.66605,
+          "z": 120.0
+        },
+        "position": {
+          "x": 300.0,
+          "y": -2251.66605,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_101",
+        "actor_label": "Arena_Tile_101_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_101",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_101_Sand",
+        "surface_position": {
+          "x": 300.0,
+          "y": -1905.255888,
+          "z": 120.0
+        },
+        "position": {
+          "x": 300.0,
+          "y": -1905.255888,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_105",
+        "actor_label": "Arena_Tile_105_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_105",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_105_Sand",
+        "surface_position": {
+          "x": 300.0,
+          "y": -519.615242,
+          "z": 100.0
+        },
+        "position": {
+          "x": 300.0,
+          "y": -519.615242,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_106",
+        "actor_label": "Arena_Tile_106_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_106",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_106_Sand",
+        "surface_position": {
+          "x": 300.0,
+          "y": -173.205081,
+          "z": 100.0
+        },
+        "position": {
+          "x": 300.0,
+          "y": -173.205081,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_107",
+        "actor_label": "Arena_Tile_107_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_107",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_107_Sand",
+        "surface_position": {
+          "x": 300.0,
+          "y": 173.205081,
+          "z": 100.0
+        },
+        "position": {
+          "x": 300.0,
+          "y": 173.205081,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_108",
+        "actor_label": "Arena_Tile_108_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_108",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_108_Sand",
+        "surface_position": {
+          "x": 300.0,
+          "y": 519.615242,
+          "z": 100.0
+        },
+        "position": {
+          "x": 300.0,
+          "y": 519.615242,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_112",
+        "actor_label": "Arena_Tile_112_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_112",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_112_Sand",
+        "surface_position": {
+          "x": 300.0,
+          "y": 1905.255888,
+          "z": 120.0
+        },
+        "position": {
+          "x": 300.0,
+          "y": 1905.255888,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_113",
+        "actor_label": "Arena_Tile_113_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_113",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_113_Grass",
+        "surface_position": {
+          "x": 300.0,
+          "y": 2251.66605,
+          "z": 120.0
+        },
+        "position": {
+          "x": 300.0,
+          "y": 2251.66605,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_114",
+        "actor_label": "Arena_Tile_114_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_114",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_114_Grass",
+        "surface_position": {
+          "x": 600.0,
+          "y": -2078.460969,
+          "z": 120.0
+        },
+        "position": {
+          "x": 600.0,
+          "y": -2078.460969,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_118",
+        "actor_label": "Arena_Tile_118_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_118",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_118_Sand",
+        "surface_position": {
+          "x": 600.0,
+          "y": 0.0,
+          "z": 100.0
+        },
+        "position": {
+          "x": 600.0,
+          "y": 0.0,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_122",
+        "actor_label": "Arena_Tile_122_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_122",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_122_Grass",
+        "surface_position": {
+          "x": 600.0,
+          "y": 2078.460969,
+          "z": 120.0
+        },
+        "position": {
+          "x": 600.0,
+          "y": 2078.460969,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_126",
+        "actor_label": "Arena_Tile_126_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_126",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_126_Grass",
+        "surface_position": {
+          "x": 900.0,
+          "y": -2251.66605,
+          "z": 120.0
+        },
+        "position": {
+          "x": 900.0,
+          "y": -2251.66605,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_127",
+        "actor_label": "Arena_Tile_127_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_127",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_127_Grass",
+        "surface_position": {
+          "x": 900.0,
+          "y": -1905.255888,
+          "z": 120.0
+        },
+        "position": {
+          "x": 900.0,
+          "y": -1905.255888,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_130",
+        "actor_label": "Arena_Tile_130_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_130",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_130_Stone",
+        "surface_position": {
+          "x": 900.0,
+          "y": -519.615242,
+          "z": 100.0
+        },
+        "position": {
+          "x": 900.0,
+          "y": -519.615242,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_133",
+        "actor_label": "Arena_Tile_133_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_133",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_133_Stone",
+        "surface_position": {
+          "x": 900.0,
+          "y": 519.615242,
+          "z": 100.0
+        },
+        "position": {
+          "x": 900.0,
+          "y": 519.615242,
+          "z": 102.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_136",
+        "actor_label": "Arena_Tile_136_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_136",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_136_Grass",
+        "surface_position": {
+          "x": 900.0,
+          "y": 1905.255888,
+          "z": 120.0
+        },
+        "position": {
+          "x": 900.0,
+          "y": 1905.255888,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_137",
+        "actor_label": "Arena_Tile_137_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_137",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_137_Grass",
+        "surface_position": {
+          "x": 900.0,
+          "y": 2251.66605,
+          "z": 140.0
+        },
+        "position": {
+          "x": 900.0,
+          "y": 2251.66605,
+          "z": 142.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_139",
+        "actor_label": "Arena_Tile_139_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_139",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_139_Grass",
+        "surface_position": {
+          "x": 900.0,
+          "y": 2944.486373,
+          "z": 120.0
+        },
+        "position": {
+          "x": 900.0,
+          "y": 2944.486373,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_142",
+        "actor_label": "Arena_Tile_142_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_142",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_142_Grass",
+        "surface_position": {
+          "x": 1200.0,
+          "y": -2078.460969,
+          "z": 140.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": -2078.460969,
+          "z": 142.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_143",
+        "actor_label": "Arena_Tile_143_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_143",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_143_Grass",
+        "surface_position": {
+          "x": 1200.0,
+          "y": -1732.050808,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": -1732.050808,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_144",
+        "actor_label": "Arena_Tile_144_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_144",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_144_Sand",
+        "surface_position": {
+          "x": 1200.0,
+          "y": -1385.640646,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": -1385.640646,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_145",
+        "actor_label": "Arena_Tile_145_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_145",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_145_Sand",
+        "surface_position": {
+          "x": 1200.0,
+          "y": -1039.230485,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": -1039.230485,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_146",
+        "actor_label": "Arena_Tile_146_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_146",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_146_Sand",
+        "surface_position": {
+          "x": 1200.0,
+          "y": -692.820323,
+          "z": 110.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": -692.820323,
+          "z": 112.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_147",
+        "actor_label": "Arena_Tile_147_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_147",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_147_Sand",
+        "surface_position": {
+          "x": 1200.0,
+          "y": -346.410162,
+          "z": 110.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": -346.410162,
+          "z": 112.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_148",
+        "actor_label": "Arena_Tile_148_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_148",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_148_Sand",
+        "surface_position": {
+          "x": 1200.0,
+          "y": 346.410162,
+          "z": 110.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": 346.410162,
+          "z": 112.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_149",
+        "actor_label": "Arena_Tile_149_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_149",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_149_Sand",
+        "surface_position": {
+          "x": 1200.0,
+          "y": 692.820323,
+          "z": 110.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": 692.820323,
+          "z": 112.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_150",
+        "actor_label": "Arena_Tile_150_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_150",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_150_Sand",
+        "surface_position": {
+          "x": 1200.0,
+          "y": 1039.230485,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": 1039.230485,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_151",
+        "actor_label": "Arena_Tile_151_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_151",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_151_Sand",
+        "surface_position": {
+          "x": 1200.0,
+          "y": 1385.640646,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": 1385.640646,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_152",
+        "actor_label": "Arena_Tile_152_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_152",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_152_Grass",
+        "surface_position": {
+          "x": 1200.0,
+          "y": 1732.050808,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": 1732.050808,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_153",
+        "actor_label": "Arena_Tile_153_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_153",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_153_Grass",
+        "surface_position": {
+          "x": 1200.0,
+          "y": 2078.460969,
+          "z": 140.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": 2078.460969,
+          "z": 142.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_156",
+        "actor_label": "Arena_Tile_156_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_156",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_156_Grass",
+        "surface_position": {
+          "x": 1200.0,
+          "y": 3117.691454,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1200.0,
+          "y": 3117.691454,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_157",
+        "actor_label": "Arena_Tile_157_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_157",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_157_Grass",
+        "surface_position": {
+          "x": 1500.0,
+          "y": -2944.486373,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1500.0,
+          "y": -2944.486373,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_162",
+        "actor_label": "Arena_Tile_162_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_162",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_162_Sand",
+        "surface_position": {
+          "x": 1500.0,
+          "y": -1212.435565,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1500.0,
+          "y": -1212.435565,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_163",
+        "actor_label": "Arena_Tile_163_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_163",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_163_Sand",
+        "surface_position": {
+          "x": 1500.0,
+          "y": -866.025404,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1500.0,
+          "y": -866.025404,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_164",
+        "actor_label": "Arena_Tile_164_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_164",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_164_Sand",
+        "surface_position": {
+          "x": 1500.0,
+          "y": -519.615242,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1500.0,
+          "y": -519.615242,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_165",
+        "actor_label": "Arena_Tile_165_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_165",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_165_Sand",
+        "surface_position": {
+          "x": 1500.0,
+          "y": 519.615242,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1500.0,
+          "y": 519.615242,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_166",
+        "actor_label": "Arena_Tile_166_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_166",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_166_Sand",
+        "surface_position": {
+          "x": 1500.0,
+          "y": 866.025404,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1500.0,
+          "y": 866.025404,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_167",
+        "actor_label": "Arena_Tile_167_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_167",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_167_Sand",
+        "surface_position": {
+          "x": 1500.0,
+          "y": 1212.435565,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1500.0,
+          "y": 1212.435565,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_172",
+        "actor_label": "Arena_Tile_172_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_172",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_172_Grass",
+        "surface_position": {
+          "x": 1500.0,
+          "y": 2944.486373,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1500.0,
+          "y": 2944.486373,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_173",
+        "actor_label": "Arena_Tile_173_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_173",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_173_Grass",
+        "surface_position": {
+          "x": 1800.0,
+          "y": -2771.281292,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": -2771.281292,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_175",
+        "actor_label": "Arena_Tile_175_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_175",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_175_Grass",
+        "surface_position": {
+          "x": 1800.0,
+          "y": -2078.460969,
+          "z": 140.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": -2078.460969,
+          "z": 142.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_177",
+        "actor_label": "Arena_Tile_177_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_177",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_177_Grass",
+        "surface_position": {
+          "x": 1800.0,
+          "y": -1385.640646,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": -1385.640646,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_178",
+        "actor_label": "Arena_Tile_178_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_178",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_178_Sand",
+        "surface_position": {
+          "x": 1800.0,
+          "y": -1039.230485,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": -1039.230485,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_179",
+        "actor_label": "Arena_Tile_179_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_179",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_179_Sand",
+        "surface_position": {
+          "x": 1800.0,
+          "y": -692.820323,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": -692.820323,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_180",
+        "actor_label": "Arena_Tile_180_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_180",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_180_Sand",
+        "surface_position": {
+          "x": 1800.0,
+          "y": -346.410162,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": -346.410162,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_182",
+        "actor_label": "Arena_Tile_182_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_182",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_182_Sand",
+        "surface_position": {
+          "x": 1800.0,
+          "y": 346.410162,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": 346.410162,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_183",
+        "actor_label": "Arena_Tile_183_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_183",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_183_Sand",
+        "surface_position": {
+          "x": 1800.0,
+          "y": 692.820323,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": 692.820323,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_184",
+        "actor_label": "Arena_Tile_184_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_184",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_184_Sand",
+        "surface_position": {
+          "x": 1800.0,
+          "y": 1039.230485,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": 1039.230485,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_185",
+        "actor_label": "Arena_Tile_185_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_185",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_185_Grass",
+        "surface_position": {
+          "x": 1800.0,
+          "y": 1385.640646,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": 1385.640646,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_188",
+        "actor_label": "Arena_Tile_188_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_188",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_188_Grass",
+        "surface_position": {
+          "x": 1800.0,
+          "y": 2771.281292,
+          "z": 120.0
+        },
+        "position": {
+          "x": 1800.0,
+          "y": 2771.281292,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_193",
+        "actor_label": "Arena_Tile_193_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_193",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_193_Grass",
+        "surface_position": {
+          "x": 2100.0,
+          "y": -866.025404,
+          "z": 120.0
+        },
+        "position": {
+          "x": 2100.0,
+          "y": -866.025404,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_194",
+        "actor_label": "Arena_Tile_194_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_194",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_194_Grass",
+        "surface_position": {
+          "x": 2100.0,
+          "y": -519.615242,
+          "z": 120.0
+        },
+        "position": {
+          "x": 2100.0,
+          "y": -519.615242,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_195",
+        "actor_label": "Arena_Tile_195_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_195",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_195_Grass",
+        "surface_position": {
+          "x": 2100.0,
+          "y": -173.205081,
+          "z": 120.0
+        },
+        "position": {
+          "x": 2100.0,
+          "y": -173.205081,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_196",
+        "actor_label": "Arena_Tile_196_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_196",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_196_Grass",
+        "surface_position": {
+          "x": 2100.0,
+          "y": 173.205081,
+          "z": 120.0
+        },
+        "position": {
+          "x": 2100.0,
+          "y": 173.205081,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_197",
+        "actor_label": "Arena_Tile_197_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_197",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_197_Grass",
+        "surface_position": {
+          "x": 2100.0,
+          "y": 519.615242,
+          "z": 120.0
+        },
+        "position": {
+          "x": 2100.0,
+          "y": 519.615242,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      {
+        "actor_name": "StaticMeshActor_198",
+        "actor_label": "Arena_Tile_198_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_198",
+        "folder": "Arena/Floor/Tiles",
+        "id": "Arena_Tile_198_Grass",
+        "surface_position": {
+          "x": 2100.0,
+          "y": 866.025404,
+          "z": 120.0
+        },
+        "position": {
+          "x": 2100.0,
+          "y": 866.025404,
+          "z": 122.000004
+        },
+        "rotation": {
+          "pitch": 0,
+          "yaw": 0,
+          "roll": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      }
+    ],
+    "excluded_tiles": [
+      {
+        "actor_name": "StaticMeshActor_0",
+        "actor_label": "Arena_Tile_001_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_0",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_291"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_1",
+        "actor_label": "Arena_Tile_002_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_1",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_291"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_4",
+        "actor_label": "Arena_Tile_005_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_4",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_291"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_6",
+        "actor_label": "Arena_Tile_007_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_6",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_290"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_7",
+        "actor_label": "Arena_Tile_008_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_7",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_293"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_8",
+        "actor_label": "Arena_Tile_009_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_8",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_291",
+          "StaticMeshActor_293"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_9",
+        "actor_label": "Arena_Tile_010_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_9",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_291",
+          "SACrystalTower_0"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_12",
+        "actor_label": "Arena_Tile_013_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_12",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_293"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_16",
+        "actor_label": "Arena_Tile_017_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_16",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_209"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_17",
+        "actor_label": "Arena_Tile_018_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_17",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_293"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_18",
+        "actor_label": "Arena_Tile_019_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_18",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_293"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_24",
+        "actor_label": "Arena_Tile_024_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_24",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_208"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_25",
+        "actor_label": "Arena_Tile_025_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_25",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_303"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_29",
+        "actor_label": "Arena_Tile_029_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_29",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_281"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_33",
+        "actor_label": "Arena_Tile_033_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_33",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_302"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_34",
+        "actor_label": "Arena_Tile_034_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_34",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_303"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_41",
+        "actor_label": "Arena_Tile_041_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_41",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_302"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_42",
+        "actor_label": "Arena_Tile_042_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_42",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_303"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_43",
+        "actor_label": "Arena_Tile_043_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_43",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_303"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_50",
+        "actor_label": "Arena_Tile_050_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_50",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_302"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_51",
+        "actor_label": "Arena_Tile_051_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_51",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_302"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_53",
+        "actor_label": "Arena_Tile_053_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_53",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_282"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_54",
+        "actor_label": "Arena_Tile_054_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_54",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_282"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_56",
+        "actor_label": "Arena_Tile_056_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_56",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_281"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_57",
+        "actor_label": "Arena_Tile_057_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_57",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_281"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_59",
+        "actor_label": "Arena_Tile_059_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_59",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_280"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_60",
+        "actor_label": "Arena_Tile_060_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_60",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_280"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_63",
+        "actor_label": "Arena_Tile_063_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_63",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_282"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_64",
+        "actor_label": "Arena_Tile_064_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_64",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_282"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_65",
+        "actor_label": "Arena_Tile_065_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_65",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_203"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_67",
+        "actor_label": "Arena_Tile_067_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_67",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_202"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_68",
+        "actor_label": "Arena_Tile_068_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_68",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_280"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_69",
+        "actor_label": "Arena_Tile_069_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_69",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_280"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_73",
+        "actor_label": "Arena_Tile_073_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_73",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_282"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_74",
+        "actor_label": "Arena_Tile_074_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_74",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_282"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_75",
+        "actor_label": "Arena_Tile_075_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_75",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_282"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_80",
+        "actor_label": "Arena_Tile_080_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_80",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_280"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_81",
+        "actor_label": "Arena_Tile_081_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_81",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_280"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_82",
+        "actor_label": "Arena_Tile_082_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_82",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_280"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_85",
+        "actor_label": "Arena_Tile_085_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_85",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_210"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_90",
+        "actor_label": "Arena_Tile_090_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_90",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_204"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_94",
+        "actor_label": "Arena_Tile_094_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_94",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_201"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_99",
+        "actor_label": "Arena_Tile_099_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_99",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_207"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_102",
+        "actor_label": "Arena_Tile_102_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_102",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_283"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_103",
+        "actor_label": "Arena_Tile_103_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_103",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_283"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_104",
+        "actor_label": "Arena_Tile_104_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_104",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_283"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_109",
+        "actor_label": "Arena_Tile_109_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_109",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_279"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_110",
+        "actor_label": "Arena_Tile_110_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_110",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_279"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_111",
+        "actor_label": "Arena_Tile_111_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_111",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_279"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_115",
+        "actor_label": "Arena_Tile_115_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_115",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_283"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_116",
+        "actor_label": "Arena_Tile_116_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_116",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_283"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_117",
+        "actor_label": "Arena_Tile_117_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_117",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_205"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_119",
+        "actor_label": "Arena_Tile_119_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_119",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_200"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_120",
+        "actor_label": "Arena_Tile_120_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_120",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_279"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_121",
+        "actor_label": "Arena_Tile_121_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_121",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_279"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_123",
+        "actor_label": "Arena_Tile_123_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_123",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_294"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_124",
+        "actor_label": "Arena_Tile_124_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_124",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_294"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_125",
+        "actor_label": "Arena_Tile_125_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_125",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_298"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_128",
+        "actor_label": "Arena_Tile_128_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_128",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_283"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_129",
+        "actor_label": "Arena_Tile_129_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_129",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_283"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_131",
+        "actor_label": "Arena_Tile_131_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_131",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_278"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_132",
+        "actor_label": "Arena_Tile_132_Stone",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_132",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_278"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_134",
+        "actor_label": "Arena_Tile_134_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_134",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_279"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_135",
+        "actor_label": "Arena_Tile_135_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_135",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_279"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_138",
+        "actor_label": "Arena_Tile_138_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_138",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_294"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_140",
+        "actor_label": "Arena_Tile_140_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_140",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_298"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_141",
+        "actor_label": "Arena_Tile_141_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_141",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_298"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_154",
+        "actor_label": "Arena_Tile_154_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_154",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_294"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_155",
+        "actor_label": "Arena_Tile_155_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_155",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_294"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_158",
+        "actor_label": "Arena_Tile_158_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_158",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_299",
+          "SACrystalTower_2"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_159",
+        "actor_label": "Arena_Tile_159_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_159",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_299"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_160",
+        "actor_label": "Arena_Tile_160_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_160",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_301"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_161",
+        "actor_label": "Arena_Tile_161_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_161",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_301"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_168",
+        "actor_label": "Arena_Tile_168_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_168",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_297"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_169",
+        "actor_label": "Arena_Tile_169_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_169",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_297"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_170",
+        "actor_label": "Arena_Tile_170_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_170",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_295"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_171",
+        "actor_label": "Arena_Tile_171_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_171",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_295",
+          "SACrystalTower_1"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_174",
+        "actor_label": "Arena_Tile_174_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_174",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_299"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_176",
+        "actor_label": "Arena_Tile_176_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_176",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_301"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_181",
+        "actor_label": "Arena_Tile_181_Sand",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_181",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_278"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_186",
+        "actor_label": "Arena_Tile_186_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_186",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_295"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_187",
+        "actor_label": "Arena_Tile_187_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_187",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_295"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_189",
+        "actor_label": "Arena_Tile_189_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_189",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_299"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_190",
+        "actor_label": "Arena_Tile_190_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_190",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_299"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_191",
+        "actor_label": "Arena_Tile_191_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_191",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_301"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_192",
+        "actor_label": "Arena_Tile_192_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_192",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_211"
+        ]
+      },
+      {
+        "actor_name": "StaticMeshActor_199",
+        "actor_label": "Arena_Tile_199_Grass",
+        "actor_path": "/Game/Maps/Main.Main:PersistentLevel.StaticMeshActor_199",
+        "folder": "Arena/Floor/Tiles",
+        "reason": "overlaps_obstacle_bounds",
+        "blocking_actors": [
+          "StaticMeshActor_206"
+        ]
+      }
+    ]
+  },
+  "crystal_tower_count": 3,
+  "crystal_towers": [
+    {
+      "actor_name": "SACrystalTower_0",
+      "actor_label": "Arena_Object_CrystalTower_01",
+      "actor_path": "/Game/Maps/Main.Main:PersistentLevel.SACrystalTower_0",
+      "folder": "Arena/Objects/CrystalTower",
+      "class_path": "/Script/UE_StickArenaDemo.SACrystalTower",
+      "position": {
+        "x": -2700.0,
+        "y": -173.0,
+        "z": 159.062758
+      },
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "scale": {
+        "x": 0.65,
+        "y": 0.65,
+        "z": 0.65
+      },
+      "mesh": "/Game/Maps/StaticMeshes/SM_CrystalTower.SM_CrystalTower",
+      "mesh_relative_location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "mesh_relative_rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "mesh_relative_scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "materials": [
+        "/Game/Maps/MaterialInstances/MI_CrystalTowerHit.MI_CrystalTowerHit"
+      ],
+      "hit_effect": {
+        "duration_seconds": 1.0,
+        "glow_strength": 15.0,
+        "light_intensity": 500.0,
+        "material_parameter": "CrystalGlowStrength",
+        "fade": "(1 - clamp(elapsed / duration, 0, 1))^2",
+        "light_relative_position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 410.0
+        },
+        "light_color_srgb": {
+          "r": 89,
+          "g": 237,
+          "b": 255,
+          "a": 255
+        },
+        "light_attenuation_radius_cm": 450.0
+      }
+    },
+    {
+      "actor_name": "SACrystalTower_1",
+      "actor_label": "Arena_Object_CrystalTower_02",
+      "actor_path": "/Game/Maps/Main.Main:PersistentLevel.SACrystalTower_1",
+      "folder": "Arena/Objects/CrystalTower",
+      "class_path": "/Script/UE_StickArenaDemo.SACrystalTower",
+      "position": {
+        "x": 1500.0,
+        "y": 2598.0,
+        "z": 139.062758
+      },
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": -120.0,
+        "roll": 0.0
+      },
+      "scale": {
+        "x": 0.65,
+        "y": 0.65,
+        "z": 0.65
+      },
+      "mesh": "/Game/Maps/StaticMeshes/SM_CrystalTower.SM_CrystalTower",
+      "mesh_relative_location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "mesh_relative_rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "mesh_relative_scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "materials": [
+        "/Game/Maps/MaterialInstances/MI_CrystalTowerHit.MI_CrystalTowerHit"
+      ],
+      "hit_effect": {
+        "duration_seconds": 1.0,
+        "glow_strength": 15.0,
+        "light_intensity": 500.0,
+        "material_parameter": "CrystalGlowStrength",
+        "fade": "(1 - clamp(elapsed / duration, 0, 1))^2",
+        "light_relative_position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 410.0
+        },
+        "light_color_srgb": {
+          "r": 89,
+          "g": 237,
+          "b": 255,
+          "a": 255
+        },
+        "light_attenuation_radius_cm": 450.0
+      }
+    },
+    {
+      "actor_name": "SACrystalTower_2",
+      "actor_label": "Arena_Object_CrystalTower_03",
+      "actor_path": "/Game/Maps/Main.Main:PersistentLevel.SACrystalTower_2",
+      "folder": "Arena/Objects/CrystalTower",
+      "class_path": "/Script/UE_StickArenaDemo.SACrystalTower",
+      "position": {
+        "x": 1500.0,
+        "y": -2598.0,
+        "z": 139.062758
+      },
+      "rotation": {
+        "pitch": 0.0,
+        "yaw": 120.0,
+        "roll": 0.0
+      },
+      "scale": {
+        "x": 0.65,
+        "y": 0.65,
+        "z": 0.65
+      },
+      "mesh": "/Game/Maps/StaticMeshes/SM_CrystalTower.SM_CrystalTower",
+      "mesh_relative_location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "mesh_relative_rotation": {
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "roll": 0.0
+      },
+      "mesh_relative_scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "materials": [
+        "/Game/Maps/MaterialInstances/MI_CrystalTowerHit.MI_CrystalTowerHit"
+      ],
+      "hit_effect": {
+        "duration_seconds": 1.0,
+        "glow_strength": 15.0,
+        "light_intensity": 500.0,
+        "material_parameter": "CrystalGlowStrength",
+        "fade": "(1 - clamp(elapsed / duration, 0, 1))^2",
+        "light_relative_position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 410.0
+        },
+        "light_color_srgb": {
+          "r": 89,
+          "g": 237,
+          "b": 255,
+          "a": 255
+        },
+        "light_attenuation_radius_cm": 450.0
+      }
+    }
+  ]
+}

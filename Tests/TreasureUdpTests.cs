@@ -8,6 +8,11 @@ public static class TreasureUdpTests
 {
     static string Session(int n) { return n.ToString("x32"); }
     static void Send(UdpClient c, string p) { var b=Encoding.ASCII.GetBytes(p); c.Send(b,b.Length); }
+    static void Heartbeat(UdpClient c, int id) {
+        try { Send(c,"SA2|type=REGISTER|session="+Session(id)+"|name=41|character=41|mesh=|anim="); }
+        catch (ObjectDisposedException) { }
+        catch (SocketException) { }
+    }
     static void Register(UdpClient c, int id) {
         Send(c,"SA2|type=REGISTER|session="+Session(id)+"|name=41|character=41|mesh=|anim=");
         Wait(c,"SA2|type=REGISTER_ACK|",null,3);
@@ -30,8 +35,10 @@ public static class TreasureUdpTests
         using(var a=new UdpClient(0)) using(var b=new UdpClient(0)) using(var spoof=new UdpClient(0)) {
             a.Connect("127.0.0.1",port); b.Connect("127.0.0.1",port); spoof.Connect("127.0.0.1",port);
             var clock=Stopwatch.StartNew(); Register(a,1); Register(b,2);
-            string first=Wait(a,"SA4|type=TREASURE_STATE|","|id=1|",8);
-            if(clock.Elapsed.TotalSeconds<4.8) throw new Exception("Spawn occurred before five seconds");
+            using(var heartbeatA = new Timer(_ => Heartbeat(a,1), null, 2000, 2000))
+            using(var heartbeatB = new Timer(_ => Heartbeat(b,2), null, 2000, 2000)) {
+            string first=Wait(a,"SA4|type=TREASURE_STATE|","|id=1|",25);
+            if(clock.Elapsed.TotalSeconds<19.0) throw new Exception("Spawn occurred before twenty seconds");
             string peer=Wait(b,"SA4|type=TREASURE_STATE|","|id=1|",2);
             if(first!=peer || Field(first,"item")!="0" || Field(first,"hits")!="0") throw new Exception("Peers disagree on spawn");
             string position=Field(first,"pos");
@@ -44,12 +51,16 @@ public static class TreasureUdpTests
             Wait(b,"SA4|type=TREASURE_STATE|","|hits=1|",2);
             Thread.Sleep(250); Send(a,hit+"2");
             Wait(b,"SA4|type=TREASURE_STATE|","|hits=2|",2);
-            Thread.Sleep(250); Send(a,hit+"3");
-            string item=Wait(b,"SA4|type=TREASURE_STATE|","|hits=3|",2);
+            for (int count = 3; count <= 4; ++count) {
+                Thread.Sleep(250); Send(a,hit+count);
+                Wait(b,"SA4|type=TREASURE_STATE|","|hits="+count+"|",2);
+            }
+            Thread.Sleep(250); Send(a,hit+"5");
+            string item=Wait(b,"SA4|type=TREASURE_STATE|","|hits=5|",2);
             if(Field(item,"pos")!=position) throw new Exception("Drop moved");
             using(var late=new UdpClient(0)) {
                 late.Connect("127.0.0.1",port); Register(late,3);
-                Wait(late,"SA4|type=TREASURE_STATE|","|hits=3|",2);
+                Wait(late,"SA4|type=TREASURE_STATE|","|hits=5|",2);
             }
             string pickup = "SA4|type=PICKUP|epoch=" + Field(first,"epoch") + "|session=" + Session(1) + "|id=1|seq=1";
             Send(spoof, pickup);
@@ -68,7 +79,8 @@ public static class TreasureUdpTests
                 if (Field(restored,"owner") != Session(1)) throw new Exception("Collected drop revived for late joiner");
             }
             Register(a,1); Register(b,2); // Keep clients alive across the second spawn interval.
-            Wait(b,"SA4|type=TREASURE_STATE|","|id=2|",7);
+            Wait(b,"SA4|type=TREASURE_STATE|","|id=2|",25);
+            }
         }
     }
 }
