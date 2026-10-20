@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\pch.h" />
+    <ClInclude Include="Source\MatchClock.h" />
     <ClInclude Include="Source\PlayerRegistration.h" />
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\PacketWorkers.h" />

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Net;
 using System.Net.Sockets;
@@ -44,9 +45,16 @@ public static class MultiplayerTests
     private static string Receive(UdpClient client)
     {
         IPEndPoint remote = new IPEndPoint(IPAddress.Any, 0);
+        Stopwatch elapsed = Stopwatch.StartNew();
         for (;;)
         {
+            if (elapsed.ElapsedMilliseconds >= client.Client.ReceiveTimeout)
+                throw new SocketException((int)SocketError.TimedOut);
             string packet = Encoding.ASCII.GetString(client.Receive(ref remote));
+            // World and match snapshots are independent of player-state assertions.
+            if (packet.StartsWith("SA4|", StringComparison.Ordinal)
+                || packet.StartsWith("SA5|", StringComparison.Ordinal)
+                || packet.StartsWith("SA6|", StringComparison.Ordinal)) continue;
             if (!packet.StartsWith("SA2|type=PLAYER_INFO|", StringComparison.Ordinal)) return packet;
             Require(packet.Contains("|character=" + Hex("/Game/BP_Player.BP_Player_C") + "|mesh=|anim="), "Invalid peer metadata");
             Interlocked.Increment(ref MetadataCount);

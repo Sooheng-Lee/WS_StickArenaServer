@@ -3,6 +3,7 @@
 #include "PacketWorkers.h"
 #include "TreasureWorld.h"
 #include "CrystalWorld.h"
+#include "MatchClock.h"
 
 namespace
 {
@@ -114,6 +115,7 @@ int main(int argc, char* argv[])
     std::cout << std::unitbuf << "StickArena UDP server listening on 0.0.0.0:" << port
         << "\nWaiting for player actions. Press Ctrl+C to stop.\n";
     PlayerRegistry playerRegistry;
+    MatchClock matchClock;
 
     std::mutex logMutex;
     const auto sendPacket = [&](const std::string& packet, const PlayerEndpoint& recipient)
@@ -201,7 +203,9 @@ int main(int argc, char* argv[])
             const auto result = playerRegistry.Store(player);
             if (result == PlayerRegistry::StoreResult::EndpointMismatch
                 || result == PlayerRegistry::StoreResult::SessionClosed) return;
+            matchClock.Start();
             sendPacket("SA2|type=REGISTER_ACK|session=" + player.PlayerId, received.Sender);
+            sendPacket(matchClock.Packet(treasureWorld.Epoch), received.Sender);
             for (const auto& update : treasureWorld.Packets()) sendPacket(update, received.Sender);
             for (const auto& update : crystalWorld.Packets()) sendPacket(update, received.Sender);
             // Repeat peer metadata during registration heartbeats so lost UDP info recovers.
@@ -230,8 +234,19 @@ int main(int argc, char* argv[])
         {
             PlayerState state;
             std::vector<PlayerEndpoint> recipients;
-            if (!StateProtocol::Parse(packet, state)
-                || !playerRegistry.UpdateState(state, received.Sender, recipients)) return;
+            if (!StateProtocol::Parse(packet, state)) return;
+            if (matchClock.RemainingMs() == 0)
+            {
+                // Keep the last accepted position even if an old client keeps moving.
+                for (const auto& player : playerRegistry.GetPlayers())
+                    if (player.PlayerId == state.PlayerId && player.HasState)
+                        state.Position = player.LatestState.Position;
+                state.MovementInput = {};
+                state.Velocity = {};
+                state.State = "IDLE";
+                if (state.Action == "MOVE") state.Action = "STOP";
+            }
+            if (!playerRegistry.UpdateState(state, received.Sender, recipients)) return;
             // UpdateState commits the struct before taking a recipient snapshot.
             // No registry lock is held during socket sends.
             const std::string broadcast = StateProtocol::Serialize(state);
@@ -252,9 +267,17 @@ int main(int argc, char* argv[])
     int exitCode = 0;
     auto lastCleanup = std::chrono::steady_clock::now();
     auto lastTick = lastCleanup;
+    auto lastMatchBroadcast = lastCleanup;
     while (Running.load())
     {
         const auto now = std::chrono::steady_clock::now();
+        if (now - lastMatchBroadcast >= std::chrono::milliseconds(250))
+        {
+            const auto update = matchClock.Packet(treasureWorld.Epoch);
+            for (const auto& peer : playerRegistry.GetPlayers())
+                sendPacket(update, {peer.Address, peer.Port});
+            lastMatchBroadcast = now;
+        }
         if (treasureWorld.Tick(std::chrono::duration<double>(now - lastTick).count(), playerRegistry.GetPlayers()))
         {
             const auto updates = treasureWorld.Packets();
