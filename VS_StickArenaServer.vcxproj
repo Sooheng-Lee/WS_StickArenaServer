@@ -45,12 +45,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Server.cpp" />
     <ClCompile Include="Source\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\pch.h" />
+    <ClInclude Include="Source\Server.h" />
     <ClInclude Include="Source\MatchClock.h" />
     <ClInclude Include="Source\PlayerRegistration.h" />
     <ClInclude Include="Source\PlayerState.h" />
