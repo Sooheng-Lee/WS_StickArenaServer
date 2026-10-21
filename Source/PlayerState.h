@@ -42,6 +42,9 @@ struct PlayerState
     double MaxHP = 100;
     double DefaultDamage = 5;
     double Defense = 2;
+    bool HasLifecycleState = false;
+    std::string CharacterState = "IDLE";
+    double LifecycleVisibility = 1;
 };
 
 namespace StateProtocol
@@ -73,6 +76,7 @@ namespace StateProtocol
         std::array<std::string_view, 9> values{};
         bool hasEquipment = false;
         bool hasStatus = false;
+        bool hasLifecycle = false;
         for (size_t index = 0; index < keys.size(); ++index)
         {
             const size_t separator = packet.find('|');
@@ -171,10 +175,30 @@ namespace StateProtocol
                     if (separator == std::string_view::npos) return false;
                     packet.remove_prefix(separator + 1);
                 }
-                else if (separator != std::string_view::npos) return false;
+                else if (separator != std::string_view::npos)
+                {
+                    hasLifecycle = true;
+                    packet.remove_prefix(separator + 1);
+                }
             }
             if (parsed.HP > parsed.MaxHP) return false;
             parsed.HasStatusState = true;
+        }
+        if (hasLifecycle)
+        {
+            constexpr std::string_view characterPrefix = "character=";
+            const auto separator = packet.find('|');
+            if (separator == std::string_view::npos || packet.substr(0, characterPrefix.size()) != characterPrefix) return false;
+            const auto character = packet.substr(characterPrefix.size(), separator - characterPrefix.size());
+            if (character != "SPAWNING" && character != "IDLE" && character != "ATTACK" && character != "DAMAGED" && character != "DEAD") return false;
+            packet.remove_prefix(separator + 1);
+            constexpr std::string_view visibilityPrefix = "visibility=";
+            if (packet.substr(0, visibilityPrefix.size()) != visibilityPrefix
+                || !ParseNumber(packet.substr(visibilityPrefix.size()), parsed.LifecycleVisibility)
+                || parsed.LifecycleVisibility < 0 || parsed.LifecycleVisibility > 1) return false;
+            if ((character == "SPAWNING" || character == "DEAD") && parsed.Action == "ATTACK") return false;
+            parsed.CharacterState = character;
+            parsed.HasLifecycleState = true;
         }
         result = std::move(parsed);
         return true;
@@ -201,6 +225,8 @@ namespace StateProtocol
         if (state.HasWeaponState && state.HasStatusState)
             packet << "|hp=" << state.HP << "|maxhp=" << state.MaxHP
                 << "|damage=" << state.DefaultDamage << "|defense=" << state.Defense;
+        if (state.HasWeaponState && state.HasStatusState && state.HasLifecycleState)
+            packet << "|character=" << state.CharacterState << "|visibility=" << state.LifecycleVisibility;
         return packet.str();
     }
 }
