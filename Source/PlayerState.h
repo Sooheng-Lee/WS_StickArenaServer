@@ -37,6 +37,11 @@ struct PlayerState
     std::string WeaponInstanceId;
     std::uint32_t Ammo = 0;
     std::uint32_t MaxAmmo = 0;
+    bool HasStatusState = false;
+    double HP = 100;
+    double MaxHP = 100;
+    double DefaultDamage = 5;
+    double Defense = 2;
 };
 
 namespace StateProtocol
@@ -67,6 +72,7 @@ namespace StateProtocol
             "session", "seq", "action", "state", "input", "pos", "vel", "rot", "attack" };
         std::array<std::string_view, 9> values{};
         bool hasEquipment = false;
+        bool hasStatus = false;
         for (size_t index = 0; index < keys.size(); ++index)
         {
             const size_t separator = packet.find('|');
@@ -118,7 +124,11 @@ namespace StateProtocol
                     if (separator == std::string_view::npos) return false;
                     packet.remove_prefix(separator + 1);
                 }
-                else if (separator != std::string_view::npos) return false;
+                else if (separator != std::string_view::npos)
+                {
+                    hasStatus = true;
+                    packet.remove_prefix(separator + 1);
+                }
             }
             const auto isHex = [](std::string_view text)
             {
@@ -144,6 +154,28 @@ namespace StateProtocol
             parsed.WeaponClassHex = equipment[0];
             parsed.WeaponInstanceId = equipment[1];
         }
+        if (hasStatus)
+        {
+            constexpr std::array<std::string_view, 4> statusKeys = { "hp", "maxhp", "damage", "defense" };
+            const std::array<double*, 4> statusValues = { &parsed.HP, &parsed.MaxHP, &parsed.DefaultDamage, &parsed.Defense };
+            for (size_t index = 0; index < statusKeys.size(); ++index)
+            {
+                const size_t separator = packet.find('|');
+                const auto field = packet.substr(0, separator);
+                const size_t equals = field.find('=');
+                if (equals == std::string_view::npos || field.substr(0, equals) != statusKeys[index]
+                    || !ParseNumber(field.substr(equals + 1), *statusValues[index])
+                    || *statusValues[index] < 0 || *statusValues[index] > 1000000) return false;
+                if (index + 1 < statusKeys.size())
+                {
+                    if (separator == std::string_view::npos) return false;
+                    packet.remove_prefix(separator + 1);
+                }
+                else if (separator != std::string_view::npos) return false;
+            }
+            if (parsed.HP > parsed.MaxHP) return false;
+            parsed.HasStatusState = true;
+        }
         result = std::move(parsed);
         return true;
     }
@@ -166,6 +198,9 @@ namespace StateProtocol
         if (state.HasWeaponState)
             packet << "|weapon=" << state.WeaponClassHex << "|weaponid=" << state.WeaponInstanceId
                 << "|ammo=" << state.Ammo << "|maxammo=" << state.MaxAmmo;
+        if (state.HasWeaponState && state.HasStatusState)
+            packet << "|hp=" << state.HP << "|maxhp=" << state.MaxHP
+                << "|damage=" << state.DefaultDamage << "|defense=" << state.Defense;
         return packet.str();
     }
 }
